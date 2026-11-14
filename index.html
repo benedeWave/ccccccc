@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honeypie — Catálogo Masculino</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            alabaster: '#F9F8F6',
+            charcoal: '#1A1A1A',
+            stone: '#73706B',
+            champagne: '#A68966',
+            champagneDark: '#8C7150',
+            sand: '#E6E2DC',
+            surface: '#FFFFFF'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif']
+          },
+          animation: {
+            'pulse-subtle': 'pulseSubtle 2s infinite',
+            'fadeIn': 'fadeIn 0.5s ease-in-out'
+          },
+          keyframes: {
+            pulseSubtle: {
+              '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(166, 137, 102, 0.4)' },
+              '50%': { transform: 'scale(1.03)', boxShadow: '0 0 0 10px rgba(166, 137, 102, 0)' }
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F9F8F6;
+      color: #1A1A1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-editorial {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F9F8F6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D5D0C8;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A68966;
+    }
+    .product-card-img {
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product-card:hover .product-card-img {
+      transform: scale(1.04);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-champagne selection:text-white pb-20 sm:pb-0">
+
+  <!-- Top Utility Bar -->
+  <div class="bg-charcoal text-alabaster text-[11px] tracking-[0.2em] uppercase py-2 px-4 text-center font-light">
+    Curaduría Exclusiva &bull; Envíos Nacionales &bull; Atención Personalizada
+  </div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-30 bg-alabaster/95 backdrop-blur-md border-b border-sand">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Brand Logo -->
+        <div class="flex items-center gap-3 cursor-pointer select-none" onclick="handleLogoClick()">
+          <div>
+            <h1 class="font-editorial text-xl sm:text-3xl tracking-[0.18em] font-medium text-charcoal leading-none">
+              HONEYPIE
+            </h1>
+            <p class="text-[8px] sm:text-[9px] tracking-[0.28em] text-stone uppercase mt-1">
+              Catálogo Masculino
+            </p>
+          </div>
+        </div>
+
+        <!-- Acciones Header -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button onclick="toggleCartDrawer(true)" class="group relative flex items-center gap-2 bg-gradient-to-r from-charcoal to-charcoal text-alabaster px-3.5 sm:px-5 py-2 text-xs uppercase tracking-[0.18em] hover:from-champagne hover:to-champagneDark shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+            <svg class="w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+            </svg>
+            <span class="font-medium hidden sm:inline">Encargo</span>
+            <span id="cart-badge" class="bg-champagne text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-inner">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Floating Cart Widget -->
+  <div id="floating-cart-bar" class="fixed bottom-6 right-6 z-40 hidden transition-all duration-500 transform translate-y-10 opacity-0">
+    <button onclick="toggleCartDrawer(true)" class="flex items-center gap-3 bg-champagne hover:bg-champagneDark text-white px-5 sm:px-6 py-3.5 rounded-full shadow-2xl border border-white/20 font-medium uppercase tracking-[0.18s] text-xs animate-pulse-subtle cursor-pointer">
+      <div class="relative">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+        </svg>
+        <span id="floating-badge" class="absolute -top-2 -right-2 bg-charcoal text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border border-white">0</span>
+      </div>
+      <span class="hidden sm:inline">Ver Carrito</span>
+      <span id="floating-total" class="font-semibold border-l border-white/30 pl-3">$0.00</span>
+    </button>
+  </div>
+
+  <!-- Hero Section con Carrusel -->
+  <section class="bg-white border-b border-sand py-6 sm:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Izquierda: Carrusel de Fotos del Hero -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div id="hero-main-photo-container" class="relative w-full max-w-md aspect-[4/5] bg-charcoal border border-sand shadow-lg overflow-hidden group cursor-pointer" title="Haz clic para ver descripción completa">
+            <!-- Renderizado dinámico del carrusel -->
+          </div>
+        </div>
+
+        <!-- Derecha: Títulos y Recuadros -->
+        <div class="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5">
+          <div>
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-amber-600 font-semibold mb-1 block">
+              Disponibles para entrega inmediata
+            </span>
+            <h2 id="hero-title-display" class="font-editorial text-2xl sm:text-4xl font-normal text-charcoal tracking-tight leading-tight">
+              Elegancia y distinción en cada detalle.
+            </h2>
+            <p id="hero-subtitle-display" class="text-xs sm:text-sm text-stone font-light mt-2 leading-relaxed">
+              Explora nuestra selección destacada o agrégalas directamente a tu carrito.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-stone mb-2 font-semibold">Selección destacada en portada:</p>
+            <div id="hero-recuadros-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <!-- Renderizado dinámico de recuadros -->
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-sand flex items-center justify-between text-xs text-stone">
+            <span id="product-count">0 piezas disponibles</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Dropdown Category & Price Filter Bar -->
+  <section class="bg-alabaster border-b border-sand">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        
+        <div class="flex items-center gap-2.5">
+          <div class="relative flex-1 sm:w-72">
+            <select 
+              id="category-dropdown" 
+              onchange="onCategoryDropdownChange(this.value)"
+              class="w-full bg-white border border-sand px-4 py-2.5 text-xs uppercase tracking-[0.15em] text-charcoal font-medium focus:outline-none focus:border-champagne cursor-pointer appearance-none pr-10"
+            >
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-stone">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-1.5 bg-white border border-sand px-2.5 py-1.5">
+            <span class="text-[11px] uppercase tracking-wider text-stone">Precio $</span>
+            <select id="min-price" onchange="applyFilters()" class="bg-white text-xs text-charcoal focus:outline-none border-b border-transparent focus:border-champagne py-0.5 cursor-pointer">
+              <option value="">Min</option>
+            </select>
+            <span class="text-stone text-xs">—</span>
+            <select id="max-price" onchange="applyFilters()" class="bg-white text-xs text-charcoal focus:outline-none border-b border-transparent focus:border-champagne py-0.5 cursor-pointer">
+              <option value="">Max</option>
+            </select>
+          </div>
+
+          <select id="sort-select" onchange="applyFilters()" class="bg-white border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne cursor-pointer">
+            <option value="featured">Destacados</option>
+            <option value="price-asc">Precio: Menor a Mayor</option>
+            <option value="price-desc">Precio: Mayor a Menor</option>
+          </select>
+
+          <button onclick="resetFilters()" class="text-[11px] uppercase tracking-wider text-stone hover:text-charcoal underline underline-offset-4 px-1 cursor-pointer">
+            Limpiar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Catalog Grid -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div id="catalog-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 sm:gap-x-6 gap-y-6 sm:gap-y-10">
+    </div>
+
+    <div id="empty-state" class="hidden py-20 text-center col-span-full">
+      <p class="font-editorial text-2xl text-charcoal mb-2">No se encontraron piezas en esta categoría</p>
+      <p class="text-xs text-stone mb-6">Intenta ajustar el rango de precio o selecciona otra categoría.</p>
+      <button onclick="resetFilters()" class="border border-charcoal px-6 py-2.5 text-xs uppercase tracking-[0.18em] hover:bg-charcoal hover:text-white transition-colors cursor-pointer">
+        Ver todo el catálogo
+      </button>
+    </div>
+
+    <!-- Banner inferior -->
+    <div class="mt-16 bg-white border border-sand p-6 sm:p-8 text-center flex flex-col items-center justify-center space-y-4 shadow-sm">
+      <h3 class="font-editorial text-2xl text-charcoal">¿Buscas una pieza específica?</h3>
+      <p class="text-xs text-stone max-w-lg font-light leading-relaxed">
+        Contáctanos directamente para confirmar stock exacto en tienda y coordinar tu entrega de manera prioritaria.
+      </p>
+      <button onclick="openCustomWhatsApp()" class="bg-charcoal hover:bg-amber-700 text-white px-6 py-3 text-xs uppercase tracking-[0.18em] font-medium transition-colors cursor-pointer shadow-md flex items-center gap-2">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.418C8.436 21.466 10.156 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+        </svg>
+        Preguntar por WhatsApp
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-sand mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-editorial text-xl tracking-[0.18em] font-medium text-charcoal">HONEYPIE</span>
+        <p class="text-xs text-stone mt-1">Catálogo Masculino Exclusivo.</p>
+      </div>
+      <div class="text-xs text-stone text-center sm:text-right">
+        <p>Pedidos directos vía WhatsApp</p>
+        <p class="mt-1 text-[11px] opacity-75">Todos los precios están expresados a la tasa oficial del Banco Central de Venezuela (BCV)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden bg-charcoal/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-sand shadow-2xl relative animate-fadeIn">
+      <button onclick="closeDetailModal()" class="sticky top-4 right-4 float-right z-20 w-9 h-9 bg-white/90 border border-sand flex items-center justify-center text-charcoal hover:bg-charcoal hover:text-white transition-colors cursor-pointer m-4">
+        ✕
+      </button>
+      <div id="detail-content" class="grid grid-cols-1 md:grid-cols-2">
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 z-[70] hidden bg-black/95 flex items-center justify-center p-4" onclick="closeLightbox()">
+    <button onclick="closeLightbox()" class="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white text-white hover:text-charcoal border border-white/20 flex items-center justify-center text-2xl font-light transition-colors z-[80] cursor-pointer rounded-full shadow-2xl">
+      ✕
+    </button>
+    <img id="lightbox-img" src="" alt="Vista completa" class="max-w-full max-h-[90vh] object-contain shadow-2xl" onclick="event.stopPropagation()" />
+  </div>
+
+  <!-- SHOPPING CART DRAWER -->
+  <div id="cart-overlay" onclick="toggleCartDrawer(false)" class="fixed inset-0 z-40 hidden bg-charcoal/50 backdrop-blur-xs transition-opacity"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-alabaster border-l border-sand shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="px-6 py-5 bg-white border-b border-sand flex items-center justify-between">
+      <div>
+        <h3 class="font-editorial text-2xl text-charcoal">Mi Carrito</h3>
+      </div>
+      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 flex items-center justify-center text-stone hover:text-charcoal text-lg cursor-pointer">
+        ✕
+      </button>
+    </div>
+
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+    </div>
+
+    <div id="cart-footer" class="bg-white border-t border-sand p-6 space-y-4">
+      <div class="space-y-2">
+        <div class="flex justify-between text-xs text-stone">
+          <span>Artículos seleccionados</span>
+          <span id="cart-total-units">0 unidades</span>
+        </div>
+        <div class="flex justify-between items-baseline pt-2 border-t border-sand">
+          <span class="text-xs uppercase tracking-[0.18em] font-medium text-charcoal">Total Estimado</span>
+          <span id="cart-total-price" class="font-editorial text-2xl font-semibold text-charcoal">$0.00</span>
+        </div>
+      </div>
+
+      <div class="space-y-2.5 pt-2">
+        <input type="text" id="customer-name" placeholder="Tu nombre completo (para el pedido)" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal placeholder-stone focus:outline-none focus:border-champagne" />
+        <input type="text" id="customer-note" placeholder="Nota opcional (ej. ciudad de envío, método de pago)" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal placeholder-stone focus:outline-none focus:border-champagne" />
+      </div>
+
+      <button onclick="sendWhatsAppOrder()" class="w-full bg-charcoal hover:bg-amber-700 text-white py-3.5 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-md">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.418C8.436 21.466 10.156 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+        </svg>
+        Enviar Pedido por WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- ADMIN MODAL -->
+  <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-charcoal/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-alabaster max-w-5xl w-full max-h-[92vh] border border-sand shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-6 py-4 bg-white border-b border-sand flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="font-editorial text-2xl text-charcoal">Gestión de Catálogo y Portada</h3>
+          <p class="text-xs text-stone">Personaliza tu WhatsApp y marca productos destacados para el Hero.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportCatalogJSON()" class="text-[11px] uppercase tracking-wider border border-sand px-3 py-1.5 bg-alabaster hover:border-charcoal transition-colors cursor-pointer">Exportar JSON</button>
+          <label class="text-[11px] uppercase tracking-wider border border-sand px-3 py-1.5 bg-alabaster hover:border-charcoal transition-colors cursor-pointer">
+            Importar JSON
+            <input type="file" accept=".json" onchange="importCatalogJSON(event)" class="hidden" />
+          </label>
+          <button onclick="closeAdminModal()" class="w-8 h-8 border border-sand flex items-center justify-center text-charcoal hover:bg-charcoal hover:text-white transition-colors ml-2 cursor-pointer">✕</button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white p-5 border border-sand space-y-4">
+            <h4 class="text-xs uppercase tracking-[0.18em] font-semibold text-charcoal">Textos y WhatsApp de la Tienda</h4>
+            <div>
+              <label class="block text-[11px] text-stone mb-1">Número de WhatsApp (sin +)</label>
+              <div class="flex gap-2">
+                <input type="text" id="admin-whatsapp" placeholder="Ej: 584121234567" class="flex-1 bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+                <button onclick="saveWhatsAppSetting()" class="bg-charcoal text-white px-4 py-2 text-[11px] uppercase tracking-wider hover:bg-amber-700 cursor-pointer">Guardar</button>
+              </div>
+            </div>
+
+            <hr class="border-sand">
+
+            <div class="space-y-3">
+              <h5 class="text-xs uppercase tracking-wider font-semibold text-charcoal">Títulos del Hero (Portada)</h5>
+              <div>
+                <label class="block text-[10px] uppercase text-stone mb-1">Título Principal:</label>
+                <input type="text" id="admin-hero-title" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+              </div>
+              <div>
+                <label class="block text-[10px] uppercase text-stone mb-1">Subtítulo:</label>
+                <textarea id="admin-hero-subtitle" rows="2" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne"></textarea>
+              </div>
+              <button onclick="saveHeroSettings()" class="w-full bg-charcoal text-white py-2 text-[11px] uppercase tracking-wider hover:bg-amber-700 cursor-pointer">Actualizar Textos</button>
+            </div>
+          </div>
+
+          <form id="product-form" onsubmit="handleProductSubmit(event)" class="bg-white p-5 border border-sand space-y-4">
+            <div class="flex items-center justify-between border-b border-sand pb-3">
+              <h4 id="form-title" class="text-xs uppercase tracking-[0.18em] font-semibold text-charcoal">Agregar Nueva Pieza</h4>
+              <button type="button" id="cancel-edit-btn" onclick="resetProductForm()" class="hidden text-[11px] text-amber-600 underline cursor-pointer">Cancelar</button>
+            </div>
+
+            <input type="hidden" id="edit-product-id" />
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Nombre del Artículo *</label>
+              <input type="text" id="prod-name" required class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Categoría *</label>
+              <select id="prod-category" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne cursor-pointer">
+                <option value="Collares">Collares</option>
+                <option value="Relojes">Relojes</option>
+                <option value="Pulseras">Pulseras</option>
+                <option value="Franelas">Franelas</option>
+                <option value="Suéteres">Suéteres</option>
+                <option value="Accesorios de cuero">Accesorios de cuero</option>
+                <option value="Lentes de sol">Lentes de sol</option>
+                <option value="Otros">Otros</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Precio ($ USD) *</label>
+                <input type="number" id="prod-price" required min="1" step="0.01" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Límite Encargo *</label>
+                <input type="number" id="prod-stock" required min="0" max="3" value="3" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 bg-alabaster p-3 border border-sand">
+              <input type="checkbox" id="prod-hero-featured" class="w-4 h-4 text-amber-600 focus:ring-amber-500 border-sand cursor-pointer" />
+              <label for="prod-hero-featured" class="text-xs font-medium text-charcoal cursor-pointer">🌟 Mostrar en el Hero (portada)</label>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Descripción *</label>
+              <textarea id="prod-desc" required rows="3" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne"></textarea>
+            </div>
+
+            <div class="space-y-3">
+              <label class="block text-[11px] uppercase tracking-wider text-stone font-semibold">Fotografías del Producto</label>
+              <div class="border border-dashed border-amber-600/60 bg-alabaster p-3 text-center">
+                <label class="cursor-pointer block">
+                  <span class="text-xs text-charcoal font-medium block">Agregar fotos desde dispositivo</span>
+                  <input type="file" id="prod-multi-files" accept="image/*" multiple onchange="handleMultipleImagesUpload(event)" class="hidden" />
+                </label>
+              </div>
+              <div>
+                <label class="block text-[10px] uppercase text-stone mb-1">O enlaces de imágenes separados por coma (https://...):</label>
+                <input type="text" id="prod-images-urls" placeholder="https://img1.jpg, https://img2.jpg" class="w-full bg-alabaster border border-sand px-3 py-1.5 text-[11px] text-charcoal focus:outline-none focus:border-champagne" />
+              </div>
+              <div id="admin-images-preview" class="flex gap-2 overflow-x-auto py-1">
+                <span class="text-[10px] text-stone">Sin fotos cargadas</span>
+              </div>
+            </div>
+
+            <button type="submit" id="submit-prod-btn" class="w-full bg-charcoal hover:bg-amber-700 text-white py-3 text-xs uppercase tracking-[0.2em] font-medium transition-colors cursor-pointer">Guardar en Catálogo</button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-7 space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs uppercase tracking-[0.18em] font-semibold text-charcoal">Inventario Actual (<span id="admin-total-count">0</span>)</h4>
+            <button onclick="restoreDefaultCatalog()" class="text-[11px] text-stone hover:text-charcoal underline cursor-pointer">Restaurar catálogo oficial</button>
+          </div>
+
+          <div id="admin-product-list" class="space-y-2.5 max-h-[65vh] overflow-y-auto pr-1">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-charcoal text-white px-5 py-3 text-xs uppercase tracking-[0.15em] shadow-xl opacity-0 pointer-events-none transition-opacity duration-300">
+    Mensaje
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const CATEGORIES = [
+      'Todos',
+      'Collares',
+      'Relojes',
+      'Pulseras',
+      'Franelas',
+      'Suéteres',
+      'Accesorios de cuero',
+      'Lentes de sol',
+      'Otros'
+    ];
+
+    const MAX_PER_ITEM = 3;
+    const ADMIN_PASSWORD = "Maria31$$";
+    const DEFAULT_WHATSAPP = "584124917865";
+
+    const DEFAULT_HERO = {
+      title: "Disponibles para entrega inmediata.",
+      subtitle: "Piezas seleccionadas listas para despachar o retirar al instante. Sin esperas, con la elegancia y distinción que mereces."
+    };
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id: "rel-01",
+        name: "Sovereign Date 40mm Acero",
+        category: "Relojes",
+        price: 58,
+        stock: 3,
+        heroFeatured: true,
+        description: "Caja y brazalete de acero inoxidable 316L cepillado. Esfera minimalista color antracita con fechador a las 3 y cristal mineral endurecido.",
+        images: [
+          "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1200&q=90",
+          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=90"
+        ]
+      },
+      {
+        id: "rel-02",
+        name: "Chrono Minimal Silver 38mm",
+        category: "Relojes",
+        price: 65,
+        stock: 3,
+        heroFeatured: true,
+        description: "Diseño limpio de inspiración Bauhaus en acero inoxidable pulido. Movimiento de cuarzo japonés de alta precisión y resistencia al agua de 5 ATM.",
+        images: [
+          "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1200&q=90"
+        ]
+      },
+      {
+        id: "col-01",
+        name: "Cadena Eslabón Cubano 4mm",
+        category: "Collares",
+        price: 28,
+        stock: 3,
+        heroFeatured: true,
+        description: "Cadena de acero inoxidable quirúrgico 316L hipoalergénico, acabado espejo de 55cm. No se oscurece ni pierde brillo con el uso diario.",
+        images: [
+          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=90"
+        ]
+      },
+      {
+        id: "fra-01",
+        name: "Camiseta Supima Heavyweight Marfil",
+        category: "Franelas",
+        price: 35,
+        stock: 3,
+        heroFeatured: false,
+        description: "Algodón de fibra larga 240 GSM con caída estructurada y cuello acanalado de alta densidad. Corte regular limpio sin logotipos visibles.",
+        images: [
+          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=90"
+        ]
+      }
+    ];
+
+    let products = JSON.parse(localStorage.getItem('honeypie_products_v4')) || [...DEFAULT_PRODUCTS];
+    let cart = JSON.parse(localStorage.getItem('honeypie_cart_v4')) || [];
+    let sellerWhatsApp = localStorage.getItem('honeypie_whatsapp_v4') || DEFAULT_WHATSAPP;
+    let heroSettings = JSON.parse(localStorage.getItem('honeypie_hero_v4')) || {...DEFAULT_HERO};
+
+    let currentCategory = 'Todos';
+    let currentUploadedImages = [];
+    let currentHeroIndex = 0;
+    let heroCarouselInterval = null;
+
+    let logoClicks = 0;
+    let logoClickTimer = null;
+
+    function handleLogoClick() {
+      logoClicks++;
+      clearTimeout(logoClickTimer);
+      if (logoClicks >= 5) {
+        logoClicks = 0;
+        requestAdminAccess();
+      } else {
+        logoClickTimer = setTimeout(() => { logoClicks = 0; }, 800);
+      }
+    }
+
+    function shareProduct(productId, event) {
+      if (event) event.stopPropagation();
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const productUrl = `${window.location.origin + window.location.pathname}#${product.id}`;
+
+      if (confirm("¿Quieres compartir este producto?")) {
+        if (navigator.share) {
+          navigator.share({
+            title: product.name,
+            text: `Mira esta pieza de Honeypie: ${product.name}`,
+            url: productUrl
+          }).catch(() => {});
+        } else {
+          // Fallback para navegadores de escritorio: copia el enlace al portapapeles
+          navigator.clipboard.writeText(productUrl).then(() => {
+            showToast('¡Enlace copiado al portapapeles!');
+          }).catch(() => {
+            prompt("Copia el enlace de este producto:", productUrl);
+          });
+        }
+      }
+    }
+
+    // Comprobar si se abrió la página con un hash (#id) para abrir el modal automáticamente
+    function checkURLHash() {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        const productExists = products.some(p => p.id === hash);
+        if (productExists) {
+          setTimeout(() => {
+            openDetailModal(hash);
+          }, 300);
+        }
+      }
+    }
+
+    function renderHero() {
+      document.getElementById('hero-title-display').textContent = heroSettings.title;
+      document.getElementById('hero-subtitle-display').textContent = heroSettings.subtitle;
+
+      const featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
+      const mainContainer = document.getElementById('hero-main-photo-container');
+      const recuadrosContainer = document.getElementById('hero-recuadros-list');
+
+      if (featuredProducts.length === 0) {
+        mainContainer.innerHTML = `
+          <div class="relative w-full h-full min-h-[320px] flex items-center justify-center bg-charcoal">
+            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1000&q=90" class="w-full h-full object-cover opacity-90" />
+            <div class="absolute bottom-3 left-3 bg-charcoal/80 text-white text-[9px] uppercase tracking-wider px-2.5 py-1">
+              Sin productos en el Hero
+            </div>
+          </div>
+        `;
+        recuadrosContainer.innerHTML = `<p class="text-xs text-stone italic col-span-3">Marca la casilla "Mostrar en el Hero" al editar tus productos.</p>`;
+        return;
+      }
+
+      if (currentHeroIndex >= featuredProducts.length) currentHeroIndex = 0;
+      const activeProduct = featuredProducts[currentHeroIndex];
+
+      mainContainer.innerHTML = `
+        <div class="relative w-full h-full min-h-[340px] flex items-center justify-center bg-charcoal group cursor-pointer" onclick="openDetailModal('${activeProduct.id}')">
+          <img src="${activeProduct.images[0]}" alt="${activeProduct.name}" class="w-full h-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent"></div>
+          
+          <button onclick="shareProduct('${activeProduct.id}', event)" class="absolute top-3 right-3 bg-white/90 hover:bg-white text-charcoal p-2 rounded-full shadow-md transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          </button>
+
+          ${featuredProducts.length > 1 ? `
+            <button onclick="prevHeroSlide(event)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center text-sm transition-colors z-10 cursor-pointer">‹</button>
+            <button onclick="nextHeroSlide(event)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center text-sm transition-colors z-10 cursor-pointer">›</button>
+            
+            <div class="absolute top-3 left-3 flex gap-1 z-10">
+              ${featuredProducts.map((_, idx) => `<span class="w-6 h-1 rounded-full transition-colors ${idx === currentHeroIndex ? 'bg-amber-500' : 'bg-white/40'}"></span>`).join('')}
+            </div>
+          ` : ''}
+
+          <div class="absolute bottom-4 left-4 right-4 text-white flex items-end justify-between pointer-events-none">
+            <div>
+              <span class="bg-amber-600 text-white text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 font-semibold shadow-sm">Entrega Inmediata</span>
+              <h3 class="font-editorial text-xl sm:text-2xl mt-1.5 leading-snug">${activeProduct.name}</h3>
+              <p class="text-xs font-semibold text-alabaster">$${Number(activeProduct.price).toFixed(2)} USD</p>
+            </div>
+            <span class="text-[9px] uppercase tracking-widest bg-white/20 px-2 py-1 rounded pointer-events-auto">Ver detalle ↗</span>
+          </div>
+        </div>
+      `;
+
+      recuadrosContainer.innerHTML = featuredProducts.map((prod, idx) => {
+        const thumbImg = prod.images[0];
+        const isSelected = idx === currentHeroIndex;
+        return `
+          <div onclick="setHeroSlide(${idx})" class="group bg-white border ${isSelected ? 'border-amber-500 ring-1 ring-amber-500' : 'border-sand hover:border-amber-500/60'} p-2.5 flex flex-col justify-between transition-all shadow-xs relative cursor-pointer" title="Ver en portada">
+            <button onclick="shareProduct('${prod.id}', event)" class="absolute top-3 right-3 bg-alabaster/90 hover:bg-white text-charcoal p-1.5 rounded-full shadow-sm transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+            </button>
+            <div class="relative aspect-square bg-alabaster overflow-hidden mb-2">
+              <img src="${thumbImg}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div>
+              <h4 class="font-editorial text-xs sm:text-sm text-charcoal truncate font-medium group-hover:text-amber-600">${prod.name}</h4>
+              <p class="text-xs font-semibold text-charcoal mt-0.5">$${Number(prod.price).toFixed(2)}</p>
+            </div>
+            <button onclick="event.stopPropagation(); addToCart('${prod.id}')" class="mt-2 w-full bg-charcoal hover:bg-amber-700 text-white text-[9px] uppercase tracking-wider py-1.5 transition-colors cursor-pointer shadow-xs">
+              + Agregar al Carrito
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      startHeroAutoPlay();
+    }
+
+    function nextHeroSlide(event) {
+      if (event) event.stopPropagation();
+      const featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
+      if (featuredProducts.length <= 1) return;
+      currentHeroIndex = (currentHeroIndex + 1) % featuredProducts.length;
+      renderHero();
+    }
+
+    function prevHeroSlide(event) {
+      if (event) event.stopPropagation();
+      const featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
+      if (featuredProducts.length <= 1) return;
+      currentHeroIndex = (currentHeroIndex - 1 + featuredProducts.length) % featuredProducts.length;
+      renderHero();
+    }
+
+    function setHeroSlide(index) {
+      currentHeroIndex = index;
+      renderHero();
+    }
+
+    function startHeroAutoPlay() {
+      if (heroCarouselInterval) clearInterval(heroCarouselInterval);
+      const featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
+      if (featuredProducts.length > 1) {
+        heroCarouselInterval = setInterval(() => {
+          currentHeroIndex = (currentHeroIndex + 1) % featuredProducts.length;
+          renderHero();
+        }, 5000);
+      }
+    }
+
+    function persistProducts() {
+      localStorage.setItem('honeypie_products_v4', JSON.stringify(products));
+    }
+    function persistCart() {
+      localStorage.setItem('honeypie_cart_v4', JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      setTimeout(() => { toast.classList.add('opacity-0'); }, 2600);
+    }
+
+    function renderCategoryDropdown() {
+      const selectEl = document.getElementById('category-dropdown');
+      selectEl.innerHTML = CATEGORIES.map(cat => {
+        const isSelected = currentCategory === cat ? 'selected' : '';
+        const displayLabel = cat === 'Todos' ? 'Todas las Categorías' : cat;
+        return `<option value="${cat}" ${isSelected}>${displayLabel}</option>`;
+      }).join('');
+    }
+
+    function onCategoryDropdownChange(value) {
+      selectCategory(value);
+    }
+
+    function selectCategory(category) {
+      currentCategory = category;
+      renderCategoryDropdown();
+      applyFilters();
+    }
+
+    function resetFilters() {
+      document.getElementById('min-price').value = '';
+      document.getElementById('max-price').value = '';
+      document.getElementById('sort-select').value = 'featured';
+      selectCategory('Todos');
+    }
+
+    function applyFilters() {
+      const minPrice = parseFloat(document.getElementById('min-price').value);
+      const maxPrice = parseFloat(document.getElementById('max-price').value);
+      const sortBy = document.getElementById('sort-select').value;
+
+      let filtered = products.filter(p => {
+        if (currentCategory !== 'Todos' && p.category !== currentCategory) return false;
+        if (!isNaN(minPrice) && p.price < minPrice) return false;
+        if (!isNaN(maxPrice) && p.price > maxPrice) return false;
+        return true;
+      });
+
+      if (sortBy === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortBy === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      renderCatalog(filtered);
+    }
+
+    function renderCatalog(items) {
+      const grid = document.getElementById('catalog-grid');
+      const empty = document.getElementById('empty-state');
+      const countLabel = document.getElementById('product-count');
+
+      countLabel.textContent = `${items.length} ${items.length === 1 ? 'pieza disponible' : 'piezas disponibles'}`;
+
+      if (items.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      grid.innerHTML = items.map(product => {
+        const maxAllowed = Math.min(MAX_PER_ITEM, product.stock);
+        const inCartItem = cart.find(c => c.id === product.id);
+        const qtyInCart = inCartItem ? inCartItem.quantity : 0;
+        const isSoldOut = maxAllowed <= 0;
+        const mainImage = (product.images && product.images.length > 0) ? product.images[0] : 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=90';
+
+        return `
+          <article class="product-card group bg-white border border-sand flex flex-col justify-between transition-all hover:border-amber-500/60 relative">
+            <button onclick="shareProduct('${product.id}', event)" class="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/90 hover:bg-white text-charcoal p-1.5 sm:p-2 rounded-full shadow-md transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+            </button>
+            <div>
+              <div onclick="openDetailModal('${product.id}')" class="relative aspect-[4/5] bg-alabaster overflow-hidden cursor-pointer">
+                <img src="${mainImage}" alt="${product.name}" class="product-card-img w-full h-full object-cover" />
+                ${product.heroFeatured ? `<span class="absolute top-2 left-2 bg-amber-600 text-white text-[8px] sm:text-[9px] uppercase px-1.5 sm:px-2 py-0.5 tracking-wider font-semibold shadow-xs">Entrega Inmediata</span>` : ''}
+                ${isSoldOut ? `<div class="absolute inset-0 bg-alabaster/75 flex items-center justify-center"><span class="bg-charcoal text-white px-2 py-1 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">Agotado</span></div>` : ''}
+              </div>
+              <div class="p-3 sm:p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-2">
+                  <h3 onclick="openDetailModal('${product.id}')" class="font-editorial text-sm sm:text-xl text-charcoal leading-snug cursor-pointer hover:text-amber-600 transition-colors line-clamp-2">${product.name}</h3>
+                  <span class="text-xs sm:text-sm font-semibold text-charcoal shrink-0">$${Number(product.price).toFixed(2)}</span>
+                </div>
+                <p class="text-[11px] sm:text-xs text-stone font-light mt-1.5 sm:mt-2 line-clamp-2 leading-relaxed hidden sm:block">${product.description}</p>
+              </div>
+            </div>
+            <div class="px-3 pb-3 sm:px-5 sm:pb-5 pt-1 sm:pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 border-t border-sand/50">
+              <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-stone hidden sm:inline">${isSoldOut ? 'Sin cupo' : `Máx. ${maxAllowed} por pedido`}</span>
+              <button onclick="addToCart('${product.id}')" ${isSoldOut ? 'disabled' : ''} class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] transition-colors ${isSoldOut ? 'bg-sand text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-amber-700 cursor-pointer'}">
+                ${qtyInCart > 0 ? `En encargo (${qtyInCart})` : '+ Encargar'}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function openDetailModal(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      const maxAllowed = Math.min(MAX_PER_ITEM, product.stock);
+      const isSoldOut = maxAllowed <= 0;
+      const imagesList = product.images || ['https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=90'];
+
+      document.getElementById('detail-content').innerHTML = `
+        <div class="p-4 md:p-6 bg-alabaster flex flex-col justify-between">
+          <div class="relative w-full h-[320px] sm:h-[380px] bg-white border border-sand overflow-hidden mb-3 flex items-center justify-center p-2 cursor-zoom-in" onclick="openLightbox(document.getElementById('modal-main-img').src)">
+            <img id="modal-main-img" src="${imagesList[0]}" class="max-h-full max-w-full object-contain" />
+          </div>
+          ${imagesList.length > 1 ? `<div class="flex gap-2 overflow-x-auto pb-2">${imagesList.map(img => `<button onclick="document.getElementById('modal-main-img').src='${img}'" class="w-14 h-14 border border-sand shrink-0 bg-white"><img src="${img}" class="w-full h-full object-cover"/></button>`).join('')}</div>` : ''}
+        </div>
+        <div class="p-5 sm:p-8 flex flex-col justify-between space-y-5 sm:space-y-6">
+          <div>
+            <div class="flex items-center justify-between">
+              <p class="text-[10px] uppercase tracking-[0.2em] text-amber-600 font-semibold">${product.category}</p>
+              <button onclick="shareProduct('${product.id}', event)" class="flex items-center gap-1.5 text-xs text-stone hover:text-charcoal uppercase tracking-wider border border-sand px-3 py-1 bg-alabaster transition-colors cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                Compartir
+              </button>
+            </div>
+            <h3 class="font-editorial text-2xl sm:text-3xl text-charcoal mt-2">${product.name}</h3>
+            <p class="text-lg sm:text-xl font-medium text-charcoal mt-3">$${Number(product.price).toFixed(2)} USD</p>
+            <div class="w-10 h-px bg-sand my-3 sm:my-4"></div>
+            <p class="text-xs sm:text-sm text-stone font-light leading-relaxed">${product.description}</p>
+          </div>
+          <div class="space-y-3 pt-4 border-t border-sand">
+            <button onclick="addToCart('${product.id}'); closeDetailModal();" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors ${isSoldOut ? 'bg-sand text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-amber-700 cursor-pointer'}">
+              ${isSoldOut ? 'Pieza Agotada' : 'Agregar al Carrito'}
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('detail-modal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() { document.getElementById('detail-modal').classList.add('hidden'); }
+    function openLightbox(imgSrc) { document.getElementById('lightbox-img').src = imgSrc; document.getElementById('lightbox-modal').classList.remove('hidden'); }
+    function closeLightbox() { document.getElementById('lightbox-modal').classList.add('hidden'); }
+
+    function openCustomWhatsApp() {
+      const cleanPhone = sellerWhatsApp.replace(/\D/g, '');
+      const defaultText = "Hola, tengo una consulta general para *HONEYPIE* sobre las piezas disponibles.";
+      if (confirm("¿Quieres redirigir a WhatsApp?")) {
+        window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(defaultText)}`, '_blank');
+      }
+    }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      const maxAllowed = Math.min(MAX_PER_ITEM, product.stock);
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        if (existing.quantity >= maxAllowed) { showToast(`Máximo permitido: ${maxAllowed}`); return; }
+        existing.quantity += 1;
+      } else {
+        cart.push({ id: productId, quantity: 1 });
+      }
+      persistCart();
+      applyFilters();
+      showToast('Agregado a tu carrito');
+    }
+
+    function updateCartQuantity(productId, delta) {
+      const product = products.find(p => p.id === productId);
+      const itemIndex = cart.findIndex(item => item.id === productId);
+      if (itemIndex === -1) return;
+      const maxAllowed = Math.min(MAX_PER_ITEM, product.stock);
+      const newQty = cart[itemIndex].quantity + delta;
+      if (newQty <= 0) cart.splice(itemIndex, 1);
+      else if (newQty <= maxAllowed) cart[itemIndex].quantity = newQty;
+      persistCart();
+      applyFilters();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      persistCart();
+      applyFilters();
+    }
+
+    function updateCartUI() {
+      const badge = document.getElementById('cart-badge');
+      const floatingBadge = document.getElementById('floating-badge');
+      const floatingBar = document.getElementById('floating-cart-bar');
+      const floatingTotal = document.getElementById('floating-total');
+      const container = document.getElementById('cart-items-container');
+      const footer = document.getElementById('cart-footer');
+
+      cart = cart.filter(c => products.some(p => p.id === c.id));
+      const totalUnits = cart.reduce((sum, item) => sum + item.quantity, 0);
+      badge.textContent = totalUnits;
+      if (floatingBadge) floatingBadge.textContent = totalUnits;
+
+      let totalAmount = 0;
+      cart.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        if (product) totalAmount += product.price * item.quantity;
+      });
+      if (floatingTotal) floatingTotal.textContent = `$${totalAmount.toFixed(2)}`;
+
+      if (totalUnits > 0) {
+        floatingBar.classList.remove('hidden');
+        setTimeout(() => floatingBar.classList.remove('translate-y-10', 'opacity-0'), 10);
+      } else {
+        floatingBar.classList.add('translate-y-10', 'opacity-0');
+        setTimeout(() => floatingBar.classList.add('hidden'), 300);
+      }
+
+      if (cart.length === 0) {
+        container.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-center py-12"><p class="font-editorial text-2xl text-charcoal mb-2">Tu carrito está vacío</p></div>`;
+        footer.classList.add('hidden');
+        return;
+      }
+      footer.classList.remove('hidden');
+
+      container.innerHTML = cart.map(item => {
+        const product = products.find(p => p.id === item.id);
+        const subtotal = product.price * item.quantity;
+        return `
+          <div class="bg-white border border-sand p-3.5 flex gap-3.5 items-center">
+            <img src="${product.images[0]}" class="w-16 h-20 object-cover bg-alabaster shrink-0" />
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start gap-2">
+                <h4 class="font-editorial text-base text-charcoal truncate">${product.name}</h4>
+                <button onclick="removeFromCart('${product.id}')" class="text-xs text-stone hover:text-charcoal">✕</button>
+              </div>
+              <p class="text-[11px] text-stone">$${Number(product.price).toFixed(2)} c/u</p>
+              <div class="flex items-center justify-between mt-2.5">
+                <div class="flex items-center border border-sand">
+                  <button onclick="updateCartQuantity('${product.id}', -1)" class="w-7 h-7 flex items-center justify-center">−</button>
+                  <span class="w-8 text-center text-xs font-medium">${item.quantity}</span>
+                  <button onclick="updateCartQuantity('${product.id}', 1)" class="w-7 h-7 flex items-center justify-center">+</button>
+                </div>
+                <span class="text-xs font-semibold text-charcoal">$${subtotal.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('cart-total-units').textContent = `${totalUnits} unidades`;
+      document.getElementById('cart-total-price').textContent = `$${totalAmount.toFixed(2)}`;
+    }
+
+    function toggleCartDrawer(open) {
+      const overlay = document.getElementById('cart-overlay');
+      const drawer = document.getElementById('cart-drawer');
+      if (open) {
+        updateCartUI();
+        overlay.classList.remove('hidden');
+        setTimeout(() => drawer.classList.remove('translate-x-full'), 10);
+      } else {
+        drawer.classList.add('translate-x-full');
+        setTimeout(() => overlay.classList.add('hidden'), 300);
+      }
+    }
+
+    function sendWhatsAppOrder() {
+      if (cart.length === 0) return;
+      const customerName = document.getElementById('customer-name').value.trim();
+      const customerNote = document.getElementById('customer-note').value.trim();
+      const cleanPhone = sellerWhatsApp.replace(/\D/g, '');
+
+      let message = `Hola, me gustaría realizar el siguiente pedido de *HONEYPIE*:\n\n`;
+      if (customerName) message += `*Cliente:* ${customerName}\n`;
+      let total = 0;
+      cart.forEach((item, index) => {
+        const product = products.find(p => p.id === item.id);
+        const sub = product.price * item.quantity;
+        total += sub;
+        message += `${index + 1}. *${product.name}* (Cant: ${item.quantity}) - $${sub.toFixed(2)}\n`;
+      });
+      message += `\n*Total:* $${total.toFixed(2)} USD\n`;
+      if (customerNote) message += `*Nota:* ${customerNote}\n`;
+
+      if (confirm("¿Quieres redirigir a WhatsApp?")) {
+        window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+      }
+    }
+
+    function requestAdminAccess() {
+      const entered = prompt("🍯 HONEYPIE ADMIN PORTAL\nIntroduce la clave de acceso:");
+      if (entered === ADMIN_PASSWORD) openAdminModal();
+      else if (entered !== null) showToast("Clave incorrecta");
+    }
+
+    function openAdminModal() {
+      document.getElementById('admin-whatsapp').value = sellerWhatsApp;
+      document.getElementById('admin-hero-title').value = heroSettings.title;
+      document.getElementById('admin-hero-subtitle').value = heroSettings.subtitle;
+      renderAdminProductList();
+      document.getElementById('admin-modal').classList.remove('hidden');
+    }
+
+    function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); resetProductForm(); }
+
+    function saveWhatsAppSetting() {
+      sellerWhatsApp = document.getElementById('admin-whatsapp').value.trim();
+      localStorage.setItem('honeypie_whatsapp_v4', sellerWhatsApp);
+      showToast('WhatsApp actualizado');
+    }
+
+    function saveHeroSettings() {
+      heroSettings.title = document.getElementById('admin-hero-title').value.trim();
+      heroSettings.subtitle = document.getElementById('admin-hero-subtitle').value.trim();
+      localStorage.setItem('honeypie_hero_v4', JSON.stringify(heroSettings));
+      renderHero();
+      showToast('Textos de portada actualizados');
+    }
+
+    function handleMultipleImagesUpload(event) {
+      const files = event.target.files;
+      if (!files) return;
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          currentUploadedImages.push(e.target.result);
+          updateAdminImagesPreview();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function updateAdminImagesPreview() {
+      const container = document.getElementById('admin-images-preview');
+      if (currentUploadedImages.length === 0) {
+        container.innerHTML = '<span class="text-[10px] text-stone">Sin fotos cargadas</span>';
+        return;
+      }
+      container.innerHTML = currentUploadedImages.map((img, idx) => `
+        <div class="relative w-14 h-14 border border-sand bg-white shrink-0 overflow-hidden">
+          <img src="${img}" class="w-full h-full object-cover" />
+          <button type="button" onclick="currentUploadedImages.splice(${idx},1);updateAdminImagesPreview();" class="absolute top-0 right-0 bg-charcoal text-white w-4 h-4 text-[9px]">✕</button>
+        </div>
+      `).join('');
+    }
+
+    function handleProductSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById('edit-product-id').value;
+      const name = document.getElementById('prod-name').value.trim();
+      const category = document.getElementById('prod-category').value;
+      const price = parseFloat(document.getElementById('prod-price').value);
+      const stock = parseInt(document.getElementById('prod-stock').value, 10);
+      const heroFeatured = document.getElementById('prod-hero-featured').checked;
+      const description = document.getElementById('prod-desc').value.trim();
+      const urlsInput = document.getElementById('prod-images-urls').value.trim();
+
+      let finalImages = [...currentUploadedImages];
+      if (urlsInput) finalImages = [...finalImages, ...urlsInput.split(',').map(u => u.trim())];
+      if (finalImages.length === 0) finalImages = ['https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=90'];
+
+      if (editId) {
+        const index = products.findIndex(p => p.id === editId);
+        if (index !== -1) products[index] = { ...products[index], name, category, price, stock, heroFeatured, description, images: finalImages };
+        showToast('Artículo actualizado');
+      } else {
+        products.unshift({ id: 'item-' + Date.now(), name, category, price, stock, heroFeatured, description, images: finalImages });
+        showToast('Pieza agregada');
+      }
+      persistProducts();
+      resetProductForm();
+      renderAdminProductList();
+      applyFilters();
+      renderHero();
+    }
+
+    function editProduct(id) {
+      const p = products.find(item => item.id === id);
+      if (!p) return;
+      document.getElementById('edit-product-id').value = p.id;
+      document.getElementById('form-title').textContent = 'Editar Artículo';
+      document.getElementById('submit-prod-btn').textContent = 'Actualizar Pieza';
+      document.getElementById('cancel-edit-btn').classList.remove('hidden');
+      document.getElementById('prod-name').value = p.name;
+      document.getElementById('prod-category').value = p.category;
+      document.getElementById('prod-price').value = p.price;
+      document.getElementById('prod-stock').value = p.stock;
+      document.getElementById('prod-hero-featured').checked = !!p.heroFeatured;
+      document.getElementById('prod-desc').value = p.description;
+      currentUploadedImages = [...p.images];
+      updateAdminImagesPreview();
+    }
+
+    function resetProductForm() {
+      document.getElementById('product-form').reset();
+      document.getElementById('edit-product-id').value = '';
+      document.getElementById('form-title').textContent = 'Agregar Nueva Pieza';
+      document.getElementById('submit-prod-btn').textContent = 'Guardar en Catálogo';
+      document.getElementById('cancel-edit-btn').classList.add('hidden');
+      document.getElementById('prod-hero-featured').checked = false;
+      currentUploadedImages = [];
+      updateAdminImagesPreview();
+    }
+
+    function deleteProduct(id) {
+      products = products.filter(p => p.id !== id);
+      cart = cart.filter(c => c.id !== id);
+      persistProducts();
+      persistCart();
+      renderAdminProductList();
+      applyFilters();
+      renderHero();
+      showToast('Eliminado');
+    }
+
+    function renderAdminProductList() {
+      document.getElementById('admin-total-count').textContent = products.length;
+      document.getElementById('admin-product-list').innerHTML = products.map(p => `
+        <div class="bg-white border border-sand p-3 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <img src="${p.images[0]}" class="w-12 h-14 object-cover bg-alabaster shrink-0" />
+            <div class="min-w-0">
+              <p class="font-editorial text-base text-charcoal truncate">${p.name} ${p.heroFeatured ? '⭐' : ''}</p>
+              <p class="text-xs font-medium text-charcoal">$${Number(p.price).toFixed(2)}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="editProduct('${p.id}')" class="border border-sand px-2.5 py-1 text-[11px]">Editar</button>
+            <button onclick="deleteProduct('${p.id}')" class="border border-sand px-2.5 py-1 text-[11px] text-red-700">Borrar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function restoreDefaultCatalog() {
+      products = [...DEFAULT_PRODUCTS];
+      persistProducts();
+      renderAdminProductList();
+      applyFilters();
+      renderHero();
+      showToast('Catálogo restaurado');
+    }
+
+    function exportCatalogJSON() {
+      const data = { products, sellerWhatsApp, heroSettings };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `honeypie-backup.json`;
+      a.click();
+    }
+
+    function importCatalogJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.products) { products = parsed.products; persistProducts(); }
+          if (parsed.sellerWhatsApp) { sellerWhatsApp = parsed.sellerWhatsApp; localStorage.setItem('honeypie_whatsapp_v4', sellerWhatsApp); }
+          if (parsed.heroSettings) { heroSettings = parsed.heroSettings; localStorage.setItem('honeypie_hero_v4', JSON.stringify(heroSettings)); }
+          renderAdminProductList();
+          applyFilters();
+          renderHero();
+          showToast('Importado con éxito');
+        } catch (err) { showToast('JSON inválido'); }
+      };
+      reader.readAsText(file);
+    }
+
+    function populatePriceSelects() {
+      let opts = '<option value="">Min</option>';
+      let maxOpts = '<option value="">Max</option>';
+      for (let i = 5; i <= 300; i += 5) {
+        opts += `<option value="${i}">$${i}</option>`;
+        maxOpts += `<option value="${i}">$${i}</option>`;
+      }
+      document.getElementById('min-price').innerHTML = opts;
+      document.getElementById('max-price').innerHTML = maxOpts;
+    }
+
+    renderHero();
+    populatePriceSelects();
+    renderCategoryDropdown();
+    applyFilters();
+    updateCartUI();
+    checkURLHash();
+  </script>
+</body>
+</html>
