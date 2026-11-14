@@ -126,13 +126,13 @@
     </button>
   </div>
 
-  <!-- Hero Section con Carrusel (Orden ajustado: Título arriba en móvil, derecha en escritorio) -->
+  <!-- Hero Section (Orden en móvil: 1. Título -> 2. Carrusel -> 3. Recuadros) -->
   <section class="bg-white border-b border-sand py-6 sm:py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+      <div class="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         
-        <!-- Bloque de Títulos y Recuadros: Primero en móvil (order-1), a la derecha en escritorio (lg:order-2) -->
-        <div class="order-1 lg:order-2 lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5">
+        <!-- 1. Bloque de Títulos (Arriba en móvil y a la derecha en escritorio) -->
+        <div class="order-1 lg:order-2 lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5 w-full">
           <div>
             <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-amber-600 font-semibold mb-1 block">
               Disponibles para entrega inmediata
@@ -141,15 +141,8 @@
               Elegancia y distinción en cada detalle.
             </h2>
             <p id="hero-subtitle-display" class="text-xs sm:text-sm text-stone font-light mt-2 leading-relaxed">
-              Explora nuestra selección destacada o agrégalas directamente a tu carrito.
+              Explora nuestra selección destacada o agrégalas directamente tu carrito.
             </p>
-          </div>
-
-          <div>
-            <p class="text-[10px] uppercase tracking-[0.2em] text-stone mb-2 font-semibold">Selección destacada en portada:</p>
-            <div id="hero-recuadros-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <!-- Renderizado dinámico de recuadros -->
-            </div>
           </div>
 
           <div class="pt-3 border-t border-sand flex items-center justify-between text-xs text-stone">
@@ -157,10 +150,18 @@
           </div>
         </div>
 
-        <!-- Carrusel de Fotos del Hero: Segundo en móvil (order-2), a la izquierda en escritorio (lg:order-1) -->
-        <div class="order-2 lg:order-1 lg:col-span-5 flex justify-center">
+        <!-- 2. Carrusel de Fotos Principal (En el medio en móvil, a la izquierda en escritorio) -->
+        <div class="order-2 lg:order-1 lg:col-span-5 flex justify-center w-full">
           <div id="hero-main-photo-container" class="relative w-full max-w-md aspect-[4/5] bg-charcoal border border-sand shadow-lg overflow-hidden group cursor-pointer" title="Haz clic para ver descripción completa">
             <!-- Renderizado dinámico del carrusel -->
+          </div>
+        </div>
+
+        <!-- 3. Recuadros de productos del Hero (Abajo en móvil y a la derecha abajo en escritorio) -->
+        <div class="order-3 lg:order-3 lg:col-span-12 w-full pt-4 border-t border-sand">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-stone mb-3 font-semibold text-center lg:text-left">Selección destacada en portada:</p>
+          <div id="hero-recuadros-list" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <!-- Renderizado dinámico de recuadros -->
           </div>
         </div>
 
@@ -602,7 +603,7 @@
             </div>
           </div>
         `;
-        recuadrosContainer.innerHTML = `<p class="text-xs text-stone italic col-span-3">Marca la casilla "Mostrar en el Hero" al editar tus productos.</p>`;
+        recuadrosContainer.innerHTML = `<p class="text-xs text-stone italic col-span-full">Marca la casilla "Mostrar en el Hero" al editar tus productos.</p>`;
         return;
       }
 
