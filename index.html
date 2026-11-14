@@ -75,6 +75,13 @@
     .product-card:hover .product-card-img {
       transform: scale(1.04);
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-accentOrange selection:text-white pb-20 sm:pb-0">
@@ -144,15 +151,33 @@
               Elegancia y distinción en cada detalle.
             </h2>
             <p id="hero-subtitle-display" class="text-xs sm:text-sm text-stone font-light mt-2 leading-relaxed">
-              Explora nuestra selección destacada o agrégalas directamente a tu carrito.
+              Explora nuestra selección destacada o agrégalas directamente tu carrito.
             </p>
           </div>
 
-          <!-- Recuadros de productos del Hero -->
+          <!-- Carrusel Horizontal de Productos Destacados -->
           <div>
             <p class="text-[10px] uppercase tracking-[0.2em] text-stone mb-2 font-semibold">Selección destacada en portada:</p>
-            <div id="hero-recuadros-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <!-- Renderizado dinámico de recuadros -->
+            
+            <div id="hero-carousel-wrapper" class="relative flex items-center">
+              <!-- Flecha Izquierda (Solo aparece si hay > 3 productos) -->
+              <button id="hero-prev-btn" onclick="scrollHeroRecuadros('left')" class="absolute -left-3.5 sm:-left-4 z-20 w-8 h-8 rounded-full bg-charcoal text-[#E9D4C3] hover:bg-stone hover:text-white border border-[#E9D4C3] flex items-center justify-center shadow-md transition-transform hover:scale-110 cursor-pointer hidden" title="Anterior">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </button>
+
+              <!-- Contenedor Deslizable / Distribuido -->
+              <div id="hero-recuadros-list" class="flex gap-3 overflow-x-auto no-scrollbar scroll-smooth px-1 py-1 w-full">
+                <!-- Renderizado dinámico -->
+              </div>
+
+              <!-- Flecha Derecha (Solo aparece si hay > 3 productos) -->
+              <button id="hero-next-btn" onclick="scrollHeroRecuadros('right')" class="absolute -right-3.5 sm:-right-4 z-20 w-8 h-8 rounded-full bg-charcoal text-[#E9D4C3] hover:bg-stone hover:text-white border border-[#E9D4C3] flex items-center justify-center shadow-md transition-transform hover:scale-110 cursor-pointer hidden" title="Siguiente">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -164,7 +189,6 @@
         <!-- 2. Carrusel Principal -->
         <div class="order-2 lg:order-1 lg:col-span-5 flex justify-center">
           <div id="hero-main-photo-container" class="relative w-full max-w-md aspect-[4/5] bg-charcoal border border-[#E9D4C3] shadow-lg overflow-hidden group cursor-pointer" title="Haz clic para ver descripción completa">
-            <!-- Renderizado dinámico del carrusel -->
           </div>
         </div>
 
@@ -610,6 +634,8 @@
       const featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
       const mainContainer = document.getElementById('hero-main-photo-container');
       const recuadrosContainer = document.getElementById('hero-recuadros-list');
+      const prevBtn = document.getElementById('hero-prev-btn');
+      const nextBtn = document.getElementById('hero-next-btn');
 
       if (featuredProducts.length === 0) {
         mainContainer.innerHTML = `
@@ -621,7 +647,20 @@
           </div>
         `;
         recuadrosContainer.innerHTML = `<p class="text-xs text-stone italic col-span-3">Marca la casilla "Mostrar en el Hero" al editar tus productos.</p>`;
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
         return;
+      }
+
+      // Control de visibilidad de las flechas según si hay más de 3 productos
+      if (featuredProducts.length > 3) {
+        prevBtn.classList.remove('hidden');
+        nextBtn.classList.remove('hidden');
+        recuadrosContainer.classList.remove('justify-around', 'justify-center');
+      } else {
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+        recuadrosContainer.classList.add('justify-start', 'sm:justify-between');
       }
 
       if (currentHeroIndex >= featuredProducts.length) currentHeroIndex = 0;
@@ -667,7 +706,7 @@
         const isSoldOut = maxAllowed <= 0;
 
         return `
-          <div onclick="selectHeroProduct(${idx}, '${prod.id}')" class="group bg-white border ${isSelected ? 'border-accentOrange ring-1 ring-accentOrange' : 'border-[#E9D4C3] hover:border-accentOrange/60'} p-2.5 flex flex-col justify-between transition-all shadow-xs relative cursor-pointer" title="Ver detalles de la pieza">
+          <div onclick="selectHeroProduct(${idx}, '${prod.id}')" class="group bg-white border ${isSelected ? 'border-accentOrange ring-1 ring-accentOrange' : 'border-[#E9D4C3] hover:border-accentOrange/60'} p-2.5 flex flex-col justify-between transition-all shadow-xs relative cursor-pointer shrink-0 w-[140px] sm:w-[155px]" title="Ver detalles de la pieza">
             <button onclick="shareProduct('${prod.id}', event)" class="absolute top-3 right-3 bg-[#FAF8F5]/90 hover:bg-white text-charcoal p-1.5 rounded-full shadow-sm transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -681,9 +720,9 @@
               <p class="text-xs font-semibold text-charcoal mt-0.5">$${Number(prod.price).toFixed(2)}</p>
             </div>
             <div class="mt-2 pt-2 border-t border-[#E9D4C3]/50 flex items-center justify-between gap-1">
-              <span class="text-[9px] uppercase tracking-wider text-stone">${isSoldOut ? 'Sin cupo' : (qtyInCart > 0 ? `En encargo (${qtyInCart})` : `Máx. ${maxAllowed}`)}</span>
-              <button onclick="event.stopPropagation(); addToCart('${prod.id}')" ${isSoldOut ? 'disabled' : ''} class="px-2.5 py-1.5 text-[9px] uppercase tracking-wider transition-colors ${isSoldOut ? 'bg-[#E9D4C3] text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-stone cursor-pointer'}">
-                ${qtyInCart > 0 ? `En encargo (${qtyInCart})` : '+ Encargar'}
+              <span class="text-[9px] uppercase tracking-wider text-stone truncate">${isSoldOut ? 'Sin cupo' : (qtyInCart > 0 ? `Encargo (${qtyInCart})` : `Máx. ${maxAllowed}`)}</span>
+              <button onclick="event.stopPropagation(); addToCart('${prod.id}')" ${isSoldOut ? 'disabled' : ''} class="px-2 py-1 text-[9px] uppercase tracking-wider transition-colors ${isSoldOut ? 'bg-[#E9D4C3] text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-stone cursor-pointer'}">
+                ${qtyInCart > 0 ? `(${qtyInCart})` : '+ Encargar'}
               </button>
             </div>
           </div>
@@ -691,6 +730,16 @@
       }).join('');
 
       startHeroAutoPlay();
+    }
+
+    function scrollHeroRecuadros(direction) {
+      const container = document.getElementById('hero-recuadros-list');
+      const scrollAmount = 160;
+      if (direction === 'left') {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
     }
 
     function selectHeroProduct(index, productId) {
@@ -715,15 +764,10 @@
       renderHero();
     }
 
-    function setHeroSlide(index) {
-      currentHeroIndex = index;
-      renderHero();
-    }
-
     function startHeroAutoPlay() {
       if (heroCarouselInterval) clearInterval(heroCarouselInterval);
       const featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
-      if (featuredProducts.length > 1) {
+      if (featuredProducts.length > 3) {
         heroCarouselInterval = setInterval(() => {
           currentHeroIndex = (currentHeroIndex + 1) % featuredProducts.length;
           renderHero();
