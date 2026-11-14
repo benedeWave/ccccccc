@@ -565,10 +565,10 @@
       }
     ];
 
-    let products = JSON.parse(localStorage.getItem('honeypie_products_v4')) || [...DEFAULT_PRODUCTS];
-    let cart = JSON.parse(localStorage.getItem('honeypie_cart_v4')) || [];
-    let sellerWhatsApp = localStorage.getItem('honeypie_whatsapp_v4') || DEFAULT_WHATSAPP;
-    let heroSettings = JSON.parse(localStorage.getItem('honeypie_hero_v4')) || {...DEFAULT_HERO};
+    let products = [...DEFAULT_PRODUCTS];
+    let cart = JSON.parse(localStorage.getItem('honeypie_cart_v5')) || [];
+    let sellerWhatsApp = DEFAULT_WHATSAPP;
+    let heroSettings = {...DEFAULT_HERO};
 
     let currentCategory = 'Todos';
     let currentUploadedImages = [];
@@ -577,6 +577,34 @@
 
     let logoClicks = 0;
     let logoClickTimer = null;
+
+    // Cargar datos en vivo desde el archivo JSON del repositorio
+    async function initCatalog() {
+      try {
+        const response = await fetch('honeypie-backup.json?' + new Date().getTime());
+        if (response.ok) {
+          const data = await response.json();
+          if (data.products && data.products.length > 0) {
+            products = data.products;
+          }
+          if (data.sellerWhatsApp) {
+            sellerWhatsApp = data.sellerWhatsApp;
+          }
+          if (data.heroSettings) {
+            heroSettings = data.heroSettings;
+          }
+        }
+      } catch (err) {
+        console.log("Usando catálogo por defecto o local.");
+      }
+
+      renderHero();
+      populatePriceSelects();
+      renderCategoryDropdown();
+      applyFilters();
+      updateCartUI();
+      checkURLHash();
+    }
 
     function handleLogoClick() {
       logoClicks++;
@@ -631,7 +659,6 @@
 
       let featuredProducts = products.filter(p => p.heroFeatured && p.images && p.images.length > 0);
       
-      // PRIORIZAR RELOJES EN EL HERO SECTION AUTOMÁTICAMENTE
       const heroWatches = featuredProducts.filter(p => p.category.toLowerCase().includes('reloj') || p.name.toLowerCase().includes('reloj'));
       const heroOthers = featuredProducts.filter(p => !p.category.toLowerCase().includes('reloj') && !p.name.toLowerCase().includes('reloj'));
       featuredProducts = [...heroWatches, ...heroOthers];
@@ -786,11 +813,8 @@
       }
     }
 
-    function persistProducts() {
-      localStorage.setItem('honeypie_products_v4', JSON.stringify(products));
-    }
     function persistCart() {
-      localStorage.setItem('honeypie_cart_v4', JSON.stringify(cart));
+      localStorage.setItem('honeypie_cart_v5', JSON.stringify(cart));
       updateCartUI();
     }
 
@@ -823,7 +847,7 @@
     function resetFilters() {
       document.getElementById('min-price').value = '';
       document.getElementById('max-price').value = '';
-      document.getElementById('sort-select').value = 'price-desc'; // Por defecto mayor a menor precio
+      document.getElementById('sort-select').value = 'price-desc';
       selectCategory('Todos');
     }
 
@@ -844,13 +868,12 @@
         return true;
       });
 
-      // ORDENAR POR DEFECTO DE MAYOR A MENOR PRECIO (A MENOS QUE SE CAMBIE MANUALMENTE)
       if (sortBy === 'price-asc') {
         filtered.sort((a, b) => a.price - b.price);
       } else if (sortBy === 'price-desc' || !sortBy) {
         filtered.sort((a, b) => b.price - a.price);
       } else if (sortBy === 'featured') {
-        // Orden original o por destacados
+        // Orden original
       }
 
       renderCatalog(filtered);
@@ -930,7 +953,7 @@
               <p class="text-[10px] uppercase tracking-[0.2em] text-accentOrange font-semibold">${product.category}</p>
               <button onclick="shareProduct('${product.id}', event)" class="flex items-center gap-1.5 text-xs text-stone hover:text-charcoal uppercase tracking-wider border border-[#E9D4C3] px-2.5 py-1 bg-[#FAF8F5] transition-colors cursor-pointer">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>
                 Compartir
               </button>
@@ -1140,16 +1163,14 @@
 
     function saveWhatsAppSetting() {
       sellerWhatsApp = document.getElementById('admin-whatsapp').value.trim();
-      localStorage.setItem('honeypie_whatsapp_v4', sellerWhatsApp);
-      showToast('WhatsApp actualizado');
+      showToast('WhatsApp actualizado temporalmente');
     }
 
     function saveHeroSettings() {
       heroSettings.title = document.getElementById('admin-hero-title').value.trim();
       heroSettings.subtitle = document.getElementById('admin-hero-subtitle').value.trim();
-      localStorage.setItem('honeypie_hero_v4', JSON.stringify(heroSettings));
       renderHero();
-      showToast('Textos de portada actualizados');
+      showToast('Textos de portada actualizados temporalmente');
     }
 
     function handleMultipleImagesUpload(event) {
@@ -1202,11 +1223,11 @@
         products.unshift({ id: 'item-' + Date.now(), name, category, price, stock, heroFeatured, description, images: finalImages });
         showToast('Pieza agregada');
       }
-      persistProducts();
       resetProductForm();
       renderAdminProductList();
       applyFilters();
       renderHero();
+      exportCatalogJSONAutomatically();
     }
 
     function editProduct(id) {
@@ -1240,12 +1261,11 @@
     function deleteProduct(id) {
       products = products.filter(p => p.id !== id);
       cart = cart.filter(c => c.id !== id);
-      persistProducts();
-      persistCart();
       renderAdminProductList();
       applyFilters();
       renderHero();
       showToast('Eliminado');
+      exportCatalogJSONAutomatically();
     }
 
     function renderAdminProductList() {
@@ -1269,11 +1289,11 @@
 
     function restoreDefaultCatalog() {
       products = [...DEFAULT_PRODUCTS];
-      persistProducts();
       renderAdminProductList();
       applyFilters();
       renderHero();
       showToast('Catálogo restaurado');
+      exportCatalogJSONAutomatically();
     }
 
     function exportCatalogJSON() {
@@ -1285,6 +1305,16 @@
       a.click();
     }
 
+    function exportCatalogJSONAutomatically() {
+      const data = { products, sellerWhatsApp, heroSettings };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `honeypie-backup.json`;
+      a.click();
+      showToast('¡Descargado honeypie-backup.json actualizado! Súbelo a GitHub.');
+    }
+
     function importCatalogJSON(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -1292,9 +1322,9 @@
       reader.onload = e => {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed.products) { products = parsed.products; persistProducts(); }
-          if (parsed.sellerWhatsApp) { sellerWhatsApp = parsed.sellerWhatsApp; localStorage.setItem('honeypie_whatsapp_v4', sellerWhatsApp); }
-          if (parsed.heroSettings) { heroSettings = parsed.heroSettings; localStorage.setItem('honeypie_hero_v4', JSON.stringify(heroSettings)); }
+          if (parsed.products) { products = parsed.products; }
+          if (parsed.sellerWhatsApp) { sellerWhatsApp = parsed.sellerWhatsApp; }
+          if (parsed.heroSettings) { heroSettings = parsed.heroSettings; }
           renderAdminProductList();
           applyFilters();
           renderHero();
@@ -1315,12 +1345,8 @@
       document.getElementById('max-price').innerHTML = maxOpts;
     }
 
-    renderHero();
-    populatePriceSelects();
-    renderCategoryDropdown();
-    applyFilters();
-    updateCartUI();
-    checkURLHash();
+    // Inicializar cargando el JSON de GitHub
+    initCatalog();
   </script>
 </body>
 </html>
