@@ -13,13 +13,16 @@
       theme: {
         extend: {
           colors: {
-            alabaster: '#F9F8F6',
-            charcoal: '#1A1A1A',
-            stone: '#73706B',
-            champagne: '#A68966',
-            champagneDark: '#8C7150',
-            sand: '#E6E2DC',
-            surface: '#FFFFFF'
+            alabaster: '#FFFFFF',
+            charcoal: '#13273F',
+            stone: '#593627',
+            champagne: '#593627',
+            champagneDark: '#40261C',
+            sand: '#E9D4C3',
+            accentOrange: '#B95118',
+            surface: '#FFFFFF',
+            whatsapp: '#25D366',
+            whatsappDark: '#1EBE5D'
           },
           fontFamily: {
             serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -31,8 +34,8 @@
           },
           keyframes: {
             pulseSubtle: {
-              '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(166, 137, 102, 0.4)' },
-              '50%': { transform: 'scale(1.03)', boxShadow: '0 0 0 10px rgba(166, 137, 102, 0)' }
+              '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(19, 39, 63, 0.4)' },
+              '50%': { transform: 'scale(1.03)', boxShadow: '0 0 0 10px rgba(19, 39, 63, 0)' }
             },
             fadeIn: {
               '0%': { opacity: '0' },
@@ -45,8 +48,8 @@
   </script>
   <style>
     body {
-      background-color: #F9F8F6;
-      color: #1A1A1A;
+      background-color: #FFFFFF;
+      color: #13273F;
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
@@ -58,13 +61,13 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #F9F8F6;
+      background: #FFFFFF;
     }
     ::-webkit-scrollbar-thumb {
-      background: #D5D0C8;
+      background: #E9D4C3;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #A68966;
+      background: #593627;
     }
     .product-card-img {
       transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -74,15 +77,15 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-champagne selection:text-white pb-20 sm:pb-0">
+<body class="min-h-screen flex flex-col selection:bg-accentOrange selection:text-white pb-20 sm:pb-0">
 
   <!-- Top Utility Bar -->
-  <div class="bg-charcoal text-alabaster text-[11px] tracking-[0.2em] uppercase py-2 px-4 text-center font-light">
+  <div class="bg-charcoal text-[#E9D4C3] text-[11px] tracking-[0.2em] uppercase py-2 px-4 text-center font-light">
     Curaduría Exclusiva &bull; Envíos Nacionales &bull; Atención Personalizada
   </div>
 
-  <!-- Sticky Navigation Header -->
-  <header class="sticky top-0 z-30 bg-alabaster/95 backdrop-blur-md border-b border-sand">
+  <!-- Navigation Header -->
+  <header class="bg-white border-b border-[#E9D4C3]">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 sm:h-20">
         
@@ -100,12 +103,12 @@
 
         <!-- Acciones Header -->
         <div class="flex items-center gap-2 sm:gap-4">
-          <button onclick="toggleCartDrawer(true)" class="group relative flex items-center gap-2 bg-gradient-to-r from-charcoal to-charcoal text-alabaster px-3.5 sm:px-5 py-2 text-xs uppercase tracking-[0.18em] hover:from-champagne hover:to-champagneDark shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+          <button onclick="toggleCartDrawer(true)" class="group relative flex items-center gap-2 bg-gradient-to-r from-charcoal to-charcoal text-[#E9D4C3] px-3.5 sm:px-5 py-2 text-xs uppercase tracking-[0.18em] hover:from-stone hover:to-champagneDark shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
             <svg class="w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
             </svg>
             <span class="font-medium hidden sm:inline">Encargo</span>
-            <span id="cart-badge" class="bg-champagne text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-inner">0</span>
+            <span id="cart-badge" class="bg-stone text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center shadow-inner">0</span>
           </button>
         </div>
       </div>
@@ -114,32 +117,27 @@
 
   <!-- Floating Cart Widget -->
   <div id="floating-cart-bar" class="fixed bottom-6 right-6 z-40 hidden transition-all duration-500 transform translate-y-10 opacity-0">
-    <button onclick="toggleCartDrawer(true)" class="flex items-center gap-3 bg-champagne hover:bg-champagneDark text-white px-5 sm:px-6 py-3.5 rounded-full shadow-2xl border border-white/20 font-medium uppercase tracking-[0.18s] text-xs animate-pulse-subtle cursor-pointer">
+    <button onclick="toggleCartDrawer(true)" class="flex items-center gap-3 bg-charcoal hover:bg-[#1a3556] text-white px-5 sm:px-6 py-3.5 rounded-full shadow-2xl border border-[#E9D4C3]/40 font-medium uppercase tracking-[0.18s] text-xs animate-pulse-subtle cursor-pointer">
       <div class="relative">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 text-[#E9D4C3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
         </svg>
-        <span id="floating-badge" class="absolute -top-2 -right-2 bg-charcoal text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border border-white">0</span>
+        <span id="floating-badge" class="absolute -top-2 -right-2 bg-stone text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border border-white">0</span>
       </div>
-      <span class="hidden sm:inline">Ver Carrito</span>
-      <span id="floating-total" class="font-semibold border-l border-white/30 pl-3">$0.00</span>
+      <span class="hidden sm:inline font-medium">Ver Carrito</span>
+      <span id="floating-total" class="font-semibold border-l border-white/20 pl-3 text-[#E9D4C3]">$0.00</span>
     </button>
   </div>
 
   <!-- Hero Section -->
-  <section class="bg-white border-b border-sand py-6 sm:py-12">
+  <section class="bg-[#FAF8F5] border-b border-[#E9D4C3] py-6 sm:py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         
-        <div class="order-2 lg:order-1 lg:col-span-5 flex justify-center">
-          <div id="hero-main-photo-container" class="relative w-full max-w-md aspect-[4/5] bg-charcoal border border-sand shadow-lg overflow-hidden group cursor-pointer" title="Haz clic para ver descripción completa">
-            <!-- Renderizado dinámico del carrusel -->
-          </div>
-        </div>
-
+        <!-- 1. Bloque de Títulos -->
         <div class="order-1 lg:order-2 lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5">
           <div>
-            <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-amber-600 font-semibold mb-1 block">
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-accentOrange font-semibold mb-1 block">
               Disponibles para entrega inmediata
             </span>
             <h2 id="hero-title-display" class="font-editorial text-2xl sm:text-4xl font-normal text-charcoal tracking-tight leading-tight">
@@ -150,6 +148,7 @@
             </p>
           </div>
 
+          <!-- Recuadros de productos del Hero -->
           <div>
             <p class="text-[10px] uppercase tracking-[0.2em] text-stone mb-2 font-semibold">Selección destacada en portada:</p>
             <div id="hero-recuadros-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -157,8 +156,15 @@
             </div>
           </div>
 
-          <div class="pt-3 border-t border-sand flex items-center justify-between text-xs text-stone">
+          <div class="pt-3 border-t border-[#E9D4C3] flex items-center justify-between text-xs text-stone">
             <span id="product-count">0 piezas disponibles</span>
+          </div>
+        </div>
+
+        <!-- 2. Carrusel Principal -->
+        <div class="order-2 lg:order-1 lg:col-span-5 flex justify-center">
+          <div id="hero-main-photo-container" class="relative w-full max-w-md aspect-[4/5] bg-charcoal border border-[#E9D4C3] shadow-lg overflow-hidden group cursor-pointer" title="Haz clic para ver descripción completa">
+            <!-- Renderizado dinámico del carrusel -->
           </div>
         </div>
 
@@ -167,8 +173,8 @@
   </section>
 
   <!-- Dropdown Category & Price Filter Bar -->
-  <section class="bg-alabaster border-b border-sand">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+  <section class="bg-[#FAF8F5] border-t-2 border-b-2 border-[#E9D4C3] shadow-inner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         
         <div class="flex items-center gap-2.5">
@@ -176,7 +182,7 @@
             <select 
               id="category-dropdown" 
               onchange="onCategoryDropdownChange(this.value)"
-              class="w-full bg-white border border-sand px-4 py-2.5 text-xs uppercase tracking-[0.15em] text-charcoal font-medium focus:outline-none focus:border-champagne cursor-pointer appearance-none pr-10"
+              class="w-full bg-white border border-[#E9D4C3] px-4 py-2.5 text-xs uppercase tracking-[0.15em] text-charcoal font-medium focus:outline-none focus:border-stone cursor-pointer appearance-none pr-10 shadow-xs"
             >
             </select>
             <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-stone">
@@ -188,25 +194,25 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-3">
-          <div class="flex items-center gap-1.5 bg-white border border-sand px-2.5 py-1.5">
+          <div class="flex items-center gap-1.5 bg-white border border-[#E9D4C3] px-2.5 py-1.5 shadow-xs">
             <span class="text-[11px] uppercase tracking-wider text-stone">Precio $</span>
-            <select id="min-price" onchange="applyFilters()" class="bg-white text-xs text-charcoal focus:outline-none border-b border-transparent focus:border-champagne py-0.5 cursor-pointer">
+            <select id="min-price" onchange="applyFilters()" class="bg-white text-xs text-charcoal focus:outline-none border-b border-transparent focus:border-stone py-0.5 cursor-pointer">
               <option value="">Min</option>
             </select>
             <span class="text-stone text-xs">—</span>
-            <select id="max-price" onchange="applyFilters()" class="bg-white text-xs text-charcoal focus:outline-none border-b border-transparent focus:border-champagne py-0.5 cursor-pointer">
+            <select id="max-price" onchange="applyFilters()" class="bg-white text-xs text-charcoal focus:outline-none border-b border-transparent focus:border-stone py-0.5 cursor-pointer">
               <option value="">Max</option>
             </select>
           </div>
 
-          <select id="sort-select" onchange="applyFilters()" class="bg-white border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne cursor-pointer">
+          <select id="sort-select" onchange="applyFilters()" class="bg-white border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone cursor-pointer shadow-xs">
             <option value="featured">Destacados</option>
             <option value="price-asc">Precio: Menor a Mayor</option>
             <option value="price-desc">Precio: Mayor a Menor</option>
           </select>
 
-          <button onclick="resetFilters()" class="text-[11px] uppercase tracking-wider text-stone hover:text-charcoal underline underline-offset-4 px-1 cursor-pointer">
-            Limpiar
+          <button onclick="resetFilters()" class="text-[11px] uppercase tracking-wider text-stone hover:text-charcoal underline underline-offset-4 px-1 cursor-pointer font-medium">
+            Limpiar filtros
           </button>
         </div>
 
@@ -228,22 +234,22 @@
     </div>
 
     <!-- Banner inferior -->
-    <div class="mt-16 bg-white border border-sand p-6 sm:p-8 text-center flex flex-col items-center justify-center space-y-4 shadow-sm">
+    <div class="mt-16 bg-white border border-[#E9D4C3] p-6 sm:p-8 text-center flex flex-col items-center justify-center space-y-4 shadow-sm">
       <h3 class="font-editorial text-2xl text-charcoal">¿Buscas una pieza específica?</h3>
       <p class="text-xs text-stone max-w-lg font-light leading-relaxed">
         Contáctanos directamente para confirmar stock exacto en tienda y coordinar tu entrega de manera prioritaria.
       </p>
-      <button onclick="openCustomWhatsApp()" class="bg-charcoal hover:bg-amber-700 text-white px-6 py-3 text-xs uppercase tracking-[0.18em] font-medium transition-colors cursor-pointer shadow-md flex items-center gap-2">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.418C8.436 21.466 10.156 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+      <button onclick="openCustomWhatsApp()" class="bg-whatsapp hover:bg-whatsappDark text-white px-6 py-3 text-xs uppercase tracking-[0.18em] font-medium transition-colors cursor-pointer shadow-md flex items-center justify-center gap-2.5 mx-auto">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
         </svg>
-        Preguntar por WhatsApp
+        <span>Preguntar por WhatsApp</span>
       </button>
     </div>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-sand mt-16">
+  <footer class="bg-white border-t border-[#E9D4C3] mt-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
         <span class="font-editorial text-xl tracking-[0.18em] font-medium text-charcoal">HONEYPIE</span>
@@ -258,8 +264,8 @@
 
   <!-- PRODUCT DETAIL MODAL -->
   <div id="detail-modal" class="fixed inset-0 z-50 hidden bg-charcoal/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4">
-    <div class="bg-white max-w-4xl w-full max-h-[92vh] sm:max-h-[90vh] overflow-y-auto border border-sand shadow-2xl relative animate-fadeIn flex flex-col">
-      <button onclick="closeDetailModal()" class="absolute top-3 right-3 z-30 w-9 h-9 bg-white/90 border border-sand flex items-center justify-center text-charcoal hover:bg-charcoal hover:text-white transition-colors cursor-pointer shadow-md rounded-full">
+    <div class="bg-white max-w-4xl w-full max-h-[92vh] sm:max-h-[90vh] overflow-y-auto border border-[#E9D4C3] shadow-2xl relative animate-fadeIn flex flex-col">
+      <button onclick="closeDetailModal()" class="absolute top-3 right-3 z-30 w-9 h-9 bg-white/90 border border-[#E9D4C3] flex items-center justify-center text-charcoal hover:bg-charcoal hover:text-white transition-colors cursor-pointer shadow-md rounded-full">
         ✕
       </button>
       <div id="detail-content" class="grid grid-cols-1 md:grid-cols-2 flex-1">
@@ -277,8 +283,8 @@
 
   <!-- SHOPPING CART DRAWER -->
   <div id="cart-overlay" onclick="toggleCartDrawer(false)" class="fixed inset-0 z-40 hidden bg-charcoal/50 backdrop-blur-xs transition-opacity"></div>
-  <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-alabaster border-l border-sand shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-    <div class="px-6 py-5 bg-white border-b border-sand flex items-center justify-between">
+  <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white border-l border-[#E9D4C3] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="px-6 py-5 bg-white border-b border-[#E9D4C3] flex items-center justify-between">
       <div>
         <h3 class="font-editorial text-2xl text-charcoal">Mi Carrito</h3>
       </div>
@@ -290,96 +296,97 @@
     <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
     </div>
 
-    <div id="cart-footer" class="bg-white border-t border-sand p-6 space-y-4">
+    <div id="cart-footer" class="bg-white border-t border-[#E9D4C3] p-6 space-y-4">
       <div class="space-y-2">
         <div class="flex justify-between text-xs text-stone">
           <span>Artículos seleccionados</span>
           <span id="cart-total-units">0 unidades</span>
         </div>
-        <div class="flex justify-between items-baseline pt-2 border-t border-sand">
+        <div class="flex justify-between items-baseline pt-2 border-t border-[#E9D4C3]">
           <span class="text-xs uppercase tracking-[0.18em] font-medium text-charcoal">Total Estimado</span>
           <span id="cart-total-price" class="font-editorial text-2xl font-semibold text-charcoal">$0.00</span>
         </div>
       </div>
 
       <div class="space-y-2.5 pt-2">
-        <input type="text" id="customer-name" placeholder="Tu nombre completo (para el pedido)" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal placeholder-stone focus:outline-none focus:border-champagne" />
-        <input type="text" id="customer-note" placeholder="Nota opcional (ej. ciudad de envío, método de pago)" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal placeholder-stone focus:outline-none focus:border-champagne" />
+        <input type="text" id="customer-name" placeholder="Tu nombre completo (para el pedido)" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal placeholder-stone focus:outline-none focus:border-stone" />
+        <input type="text" id="customer-note" placeholder="Nota opcional (ej. ciudad de envío, método de pago)" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal placeholder-stone focus:outline-none focus:border-stone" />
       </div>
 
-      <button onclick="sendWhatsAppOrder()" class="w-full bg-charcoal hover:bg-amber-700 text-white py-3.5 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-md">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.418C8.436 21.466 10.156 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+      <button onclick="sendWhatsAppOrder()" class="w-full bg-whatsapp hover:bg-whatsappDark text-white py-3.5 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-md">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
         </svg>
-        Enviar Pedido por WhatsApp
+        <span>Enviar Pedido por WhatsApp</span>
       </button>
     </div>
   </aside>
 
   <!-- ADMIN MODAL -->
   <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-charcoal/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6">
-    <div class="bg-alabaster max-w-5xl w-full max-h-[92vh] border border-sand shadow-2xl flex flex-col overflow-hidden">
-      <div class="px-6 py-4 bg-white border-b border-sand flex flex-wrap items-center justify-between gap-4">
+    <div class="bg-white max-w-5xl w-full max-h-[92vh] border border-[#E9D4C3] shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-6 py-4 bg-white border-b border-[#E9D4C3] flex flex-wrap items-center justify-between gap-4">
         <div>
           <h3 class="font-editorial text-2xl text-charcoal">Gestión de Catálogo y Portada</h3>
           <p class="text-xs text-stone">Personaliza tu WhatsApp y marca productos destacados para el Hero.</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="exportCatalogJSON()" class="text-[11px] uppercase tracking-wider border border-sand px-3 py-1.5 bg-alabaster hover:border-charcoal transition-colors cursor-pointer">Exportar JSON</button>
-          <label class="text-[11px] uppercase tracking-wider border border-sand px-3 py-1.5 bg-alabaster hover:border-charcoal transition-colors cursor-pointer">
+          <button onclick="exportCatalogJSON()" class="text-[11px] uppercase tracking-wider border border-[#E9D4C3] px-3 py-1.5 bg-white hover:border-charcoal transition-colors cursor-pointer">Exportar JSON</button>
+          <label class="text-[11px] uppercase tracking-wider border border-[#E9D4C3] px-3 py-1.5 bg-white hover:border-charcoal transition-colors cursor-pointer">
             Importar JSON
             <input type="file" accept=".json" onchange="importCatalogJSON(event)" class="hidden" />
           </label>
-          <button onclick="closeAdminModal()" class="w-8 h-8 border border-sand flex items-center justify-center text-charcoal hover:bg-charcoal hover:text-white transition-colors ml-2 cursor-pointer">✕</button>
+          <button onclick="closeAdminModal()" class="w-8 h-8 border border-[#E9D4C3] flex items-center justify-center text-charcoal hover:bg-charcoal hover:text-white transition-colors ml-2 cursor-pointer">✕</button>
         </div>
       </div>
 
       <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-5 space-y-6">
-          <div class="bg-white p-5 border border-sand space-y-4">
+          <div class="bg-white p-5 border border-[#E9D4C3] space-y-4">
             <h4 class="text-xs uppercase tracking-[0.18em] font-semibold text-charcoal">Textos y WhatsApp de la Tienda</h4>
             <div>
               <label class="block text-[11px] text-stone mb-1">Número de WhatsApp (sin +)</label>
               <div class="flex gap-2">
-                <input type="text" id="admin-whatsapp" placeholder="Ej: 584121234567" class="flex-1 bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
-                <button onclick="saveWhatsAppSetting()" class="bg-charcoal text-white px-4 py-2 text-[11px] uppercase tracking-wider hover:bg-amber-700 cursor-pointer">Guardar</button>
+                <input type="text" id="admin-whatsapp" placeholder="Ej: 584121234567" class="flex-1 bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone" />
+                <button onclick="saveWhatsAppSetting()" class="bg-charcoal text-white px-4 py-2 text-[11px] uppercase tracking-wider hover:bg-stone cursor-pointer">Guardar</button>
               </div>
             </div>
 
-            <hr class="border-sand">
+            <hr class="border-[#E9D4C3]">
 
             <div class="space-y-3">
               <h5 class="text-xs uppercase tracking-wider font-semibold text-charcoal">Títulos del Hero (Portada)</h5>
               <div>
                 <label class="block text-[10px] uppercase text-stone mb-1">Título Principal:</label>
-                <input type="text" id="admin-hero-title" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+                <input type="text" id="admin-hero-title" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone" />
               </div>
               <div>
                 <label class="block text-[10px] uppercase text-stone mb-1">Subtítulo:</label>
-                <textarea id="admin-hero-subtitle" rows="2" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne"></textarea>
+                <textarea id="admin-hero-subtitle" rows="2" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone"></textarea>
               </div>
-              <button onclick="saveHeroSettings()" class="w-full bg-charcoal text-white py-2 text-[11px] uppercase tracking-wider hover:bg-amber-700 cursor-pointer">Actualizar Textos</button>
+              <button onclick="saveHeroSettings()" class="w-full bg-charcoal text-white py-2 text-[11px] uppercase tracking-wider hover:bg-stone cursor-pointer">Actualizar Textos</button>
             </div>
           </div>
 
-          <form id="product-form" onsubmit="handleProductSubmit(event)" class="bg-white p-5 border border-sand space-y-4">
-            <div class="flex items-center justify-between border-b border-sand pb-3">
+          <form id="product-form" onsubmit="handleProductSubmit(event)" class="bg-white p-5 border border-[#E9D4C3] space-y-4">
+            <div class="flex items-center justify-between border-b border-[#E9D4C3] pb-3">
               <h4 id="form-title" class="text-xs uppercase tracking-[0.18em] font-semibold text-charcoal">Agregar Nueva Pieza</h4>
-              <button type="button" id="cancel-edit-btn" onclick="resetProductForm()" class="hidden text-[11px] text-amber-600 underline cursor-pointer">Cancelar</button>
+              <button type="button" id="cancel-edit-btn" onclick="resetProductForm()" class="hidden text-[11px] text-stone underline cursor-pointer">Cancelar</button>
             </div>
 
             <input type="hidden" id="edit-product-id" />
 
             <div>
               <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Nombre del Artículo *</label>
-              <input type="text" id="prod-name" required class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+              <input type="text" id="prod-name" required class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone" />
             </div>
 
             <div>
               <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Categoría *</label>
-              <select id="prod-category" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne cursor-pointer">
+              <select id="prod-category" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone cursor-pointer">
                 <option value="Collares">Collares</option>
-                <option value="Relojes">Relojes</option>
+                <option value="Relojes: Acero Inoxidable">Relojes: Acero Inoxidable</option>
+                <option value="Relojes: Casio Originales">Relojes: Casio Originales</option>
                 <option value="Pulseras">Pulseras</option>
                 <option value="Franelas">Franelas</option>
                 <option value="Suéteres">Suéteres</option>
@@ -392,27 +399,27 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Precio ($ USD) *</label>
-                <input type="number" id="prod-price" required min="1" step="0.01" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+                <input type="number" id="prod-price" required min="1" step="0.01" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone" />
               </div>
               <div>
                 <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Límite Encargo *</label>
-                <input type="number" id="prod-stock" required min="0" max="3" value="3" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne" />
+                <input type="number" id="prod-stock" required min="0" max="3" value="3" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone" />
               </div>
             </div>
 
-            <div class="flex items-center gap-2.5 bg-alabaster p-3 border border-sand">
-              <input type="checkbox" id="prod-hero-featured" class="w-4 h-4 text-amber-600 focus:ring-amber-500 border-sand cursor-pointer" />
+            <div class="flex items-center gap-2.5 bg-[#FAF8F5] p-3 border border-[#E9D4C3]">
+              <input type="checkbox" id="prod-hero-featured" class="w-4 h-4 text-stone focus:ring-stone border-[#E9D4C3] cursor-pointer" />
               <label for="prod-hero-featured" class="text-xs font-medium text-charcoal cursor-pointer">🌟 Mostrar en el Hero (portada)</label>
             </div>
 
             <div>
               <label class="block text-[11px] uppercase tracking-wider text-stone mb-1">Descripción *</label>
-              <textarea id="prod-desc" required rows="3" class="w-full bg-alabaster border border-sand px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-champagne"></textarea>
+              <textarea id="prod-desc" required rows="3" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-stone"></textarea>
             </div>
 
             <div class="space-y-3">
               <label class="block text-[11px] uppercase tracking-wider text-stone font-semibold">Fotografías del Producto</label>
-              <div class="border border-dashed border-amber-600/60 bg-alabaster p-3 text-center">
+              <div class="border border-dashed border-stone/60 bg-[#FAF8F5] p-3 text-center">
                 <label class="cursor-pointer block">
                   <span class="text-xs text-charcoal font-medium block">Agregar fotos desde dispositivo</span>
                   <input type="file" id="prod-multi-files" accept="image/*" multiple onchange="handleMultipleImagesUpload(event)" class="hidden" />
@@ -420,14 +427,14 @@
               </div>
               <div>
                 <label class="block text-[10px] uppercase text-stone mb-1">O enlaces de imágenes separados por coma (https://...):</label>
-                <input type="text" id="prod-images-urls" placeholder="https://img1.jpg, https://img2.jpg" class="w-full bg-alabaster border border-sand px-3 py-1.5 text-[11px] text-charcoal focus:outline-none focus:border-champagne" />
+                <input type="text" id="prod-images-urls" placeholder="https://img1.jpg, https://img2.jpg" class="w-full bg-[#FAF8F5] border border-[#E9D4C3] px-3 py-1.5 text-[11px] text-charcoal focus:outline-none focus:border-stone" />
               </div>
               <div id="admin-images-preview" class="flex gap-2 overflow-x-auto py-1">
                 <span class="text-[10px] text-stone">Sin fotos cargadas</span>
               </div>
             </div>
 
-            <button type="submit" id="submit-prod-btn" class="w-full bg-charcoal hover:bg-amber-700 text-white py-3 text-xs uppercase tracking-[0.2em] font-medium transition-colors cursor-pointer">Guardar en Catálogo</button>
+            <button type="submit" id="submit-prod-btn" class="w-full bg-charcoal hover:bg-stone text-white py-3 text-xs uppercase tracking-[0.2em] font-medium transition-colors cursor-pointer">Guardar en Catálogo</button>
           </form>
         </div>
 
@@ -453,7 +460,8 @@
     const CATEGORIES = [
       'Todos',
       'Collares',
-      'Relojes',
+      'Relojes: Acero Inoxidable',
+      'Relojes: Casio Originales',
       'Pulseras',
       'Franelas',
       'Suéteres',
@@ -475,7 +483,7 @@
       {
         id: "rel-01",
         name: "Sovereign Date 40mm Acero",
-        category: "Relojes",
+        category: "Relojes: Acero Inoxidable",
         price: 58,
         stock: 3,
         heroFeatured: true,
@@ -488,13 +496,25 @@
       {
         id: "rel-02",
         name: "Chrono Minimal Silver 38mm",
-        category: "Relojes",
+        category: "Relojes: Acero Inoxidable",
         price: 65,
         stock: 3,
         heroFeatured: true,
         description: "Diseño limpio de inspiración Bauhaus en acero inoxidable pulido. Movimiento de cuarzo japonés de alta precisión y resistencia al agua de 5 ATM.",
         images: [
           "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1200&q=90"
+        ]
+      },
+      {
+        id: "casio-01",
+        name: "Casio Vintage A158WA Original",
+        category: "Relojes: Casio Originales",
+        price: 32,
+        stock: 3,
+        heroFeatured: true,
+        description: "El icónico diseño retro de Casio en acero inoxidable. Cuenta con cronógrafo, alarma diaria, luz LED y resistencia al agua cotidiana.",
+        images: [
+          "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=1200&q=90"
         ]
       },
       {
@@ -623,15 +643,15 @@
             <button onclick="nextHeroSlide(event)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center text-sm transition-colors z-10 cursor-pointer">›</button>
             
             <div class="absolute top-3 left-3 flex gap-1 z-10">
-              ${featuredProducts.map((_, idx) => `<span class="w-6 h-1 rounded-full transition-colors ${idx === currentHeroIndex ? 'bg-amber-500' : 'bg-white/40'}"></span>`).join('')}
+              ${featuredProducts.map((_, idx) => `<span class="w-6 h-1 rounded-full transition-colors ${idx === currentHeroIndex ? 'bg-accentOrange' : 'bg-white/40'}"></span>`).join('')}
             </div>
           ` : ''}
 
           <div class="absolute bottom-4 left-4 right-4 text-white flex items-end justify-between pointer-events-none">
             <div>
-              <span class="bg-amber-600 text-white text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 font-semibold shadow-sm">Entrega Inmediata</span>
+              <span class="bg-accentOrange text-white text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 font-semibold shadow-sm">Entrega Inmediata</span>
               <h3 class="font-editorial text-xl sm:text-2xl mt-1.5 leading-snug">${activeProduct.name}</h3>
-              <p class="text-xs font-semibold text-alabaster">$${Number(activeProduct.price).toFixed(2)} USD</p>
+              <p class="text-xs font-semibold text-[#E9D4C3]">$${Number(activeProduct.price).toFixed(2)} USD</p>
             </div>
             <span class="text-[9px] uppercase tracking-widest bg-white/20 px-2 py-1 rounded pointer-events-auto">Ver detalle ↗</span>
           </div>
@@ -641,23 +661,31 @@
       recuadrosContainer.innerHTML = featuredProducts.map((prod, idx) => {
         const thumbImg = prod.images[0];
         const isSelected = idx === currentHeroIndex;
+        const maxAllowed = Math.min(MAX_PER_ITEM, prod.stock);
+        const inCartItem = cart.find(c => c.id === prod.id);
+        const qtyInCart = inCartItem ? inCartItem.quantity : 0;
+        const isSoldOut = maxAllowed <= 0;
+
         return `
-          <div onclick="selectHeroProduct(${idx}, '${prod.id}')" class="group bg-white border ${isSelected ? 'border-amber-500 ring-1 ring-amber-500' : 'border-sand hover:border-amber-500/60'} p-2.5 flex flex-col justify-between transition-all shadow-xs relative cursor-pointer" title="Ver detalles de la pieza">
-            <button onclick="shareProduct('${prod.id}', event)" class="absolute top-3 right-3 bg-alabaster/90 hover:bg-white text-charcoal p-1.5 rounded-full shadow-sm transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
+          <div onclick="selectHeroProduct(${idx}, '${prod.id}')" class="group bg-white border ${isSelected ? 'border-accentOrange ring-1 ring-accentOrange' : 'border-[#E9D4C3] hover:border-accentOrange/60'} p-2.5 flex flex-col justify-between transition-all shadow-xs relative cursor-pointer" title="Ver detalles de la pieza">
+            <button onclick="shareProduct('${prod.id}', event)" class="absolute top-3 right-3 bg-[#FAF8F5]/90 hover:bg-white text-charcoal p-1.5 rounded-full shadow-sm transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
             </button>
-            <div class="relative aspect-square bg-alabaster overflow-hidden mb-2">
+            <div class="relative aspect-square bg-[#FAF8F5] overflow-hidden mb-2">
               <img src="${thumbImg}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div>
-              <h4 class="font-editorial text-xs sm:text-sm text-charcoal truncate font-medium group-hover:text-amber-600">${prod.name}</h4>
+              <h4 class="font-editorial text-xs sm:text-sm text-charcoal truncate font-medium group-hover:text-accentOrange">${prod.name}</h4>
               <p class="text-xs font-semibold text-charcoal mt-0.5">$${Number(prod.price).toFixed(2)}</p>
             </div>
-            <button onclick="event.stopPropagation(); addToCart('${prod.id}')" class="mt-2 w-full bg-charcoal hover:bg-amber-700 text-white text-[9px] uppercase tracking-wider py-1.5 transition-colors cursor-pointer shadow-xs">
-              + Agregar al Carrito
-            </button>
+            <div class="mt-2 pt-2 border-t border-[#E9D4C3]/50 flex items-center justify-between gap-1">
+              <span class="text-[9px] uppercase tracking-wider text-stone">${isSoldOut ? 'Sin cupo' : (qtyInCart > 0 ? `En encargo (${qtyInCart})` : `Máx. ${maxAllowed}`)}</span>
+              <button onclick="event.stopPropagation(); addToCart('${prod.id}')" ${isSoldOut ? 'disabled' : ''} class="px-2.5 py-1.5 text-[9px] uppercase tracking-wider transition-colors ${isSoldOut ? 'bg-[#E9D4C3] text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-stone cursor-pointer'}">
+                ${qtyInCart > 0 ? `En encargo (${qtyInCart})` : '+ Encargar'}
+              </button>
+            </div>
           </div>
         `;
       }).join('');
@@ -787,29 +815,29 @@
         const mainImage = (product.images && product.images.length > 0) ? product.images[0] : 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=90';
 
         return `
-          <article class="product-card group bg-white border border-sand flex flex-col justify-between transition-all hover:border-amber-500/60 relative">
+          <article class="product-card group bg-white border border-[#E9D4C3] flex flex-col justify-between transition-all hover:border-accentOrange/60 relative">
             <button onclick="shareProduct('${product.id}', event)" class="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/90 hover:bg-white text-charcoal p-1.5 sm:p-2 rounded-full shadow-md transition-transform hover:scale-110 z-10 cursor-pointer" title="Compartir pieza">
               <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
             </button>
             <div>
-              <div onclick="openDetailModal('${product.id}')" class="relative aspect-[4/5] bg-alabaster overflow-hidden cursor-pointer">
+              <div onclick="openDetailModal('${product.id}')" class="relative aspect-[4/5] bg-[#FAF8F5] overflow-hidden cursor-pointer">
                 <img src="${mainImage}" alt="${product.name}" class="product-card-img w-full h-full object-cover" />
-                ${product.heroFeatured ? `<span class="absolute top-2 left-2 bg-amber-600 text-white text-[8px] sm:text-[9px] uppercase px-1.5 sm:px-2 py-0.5 tracking-wider font-semibold shadow-xs">Entrega Inmediata</span>` : ''}
-                ${isSoldOut ? `<div class="absolute inset-0 bg-alabaster/75 flex items-center justify-center"><span class="bg-charcoal text-white px-2 py-1 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">Agotado</span></div>` : ''}
+                ${product.heroFeatured ? `<span class="absolute top-2 left-2 bg-accentOrange text-white text-[8px] sm:text-[9px] uppercase px-1.5 sm:px-2 py-0.5 tracking-wider font-semibold shadow-xs">Entrega Inmediata</span>` : ''}
+                ${isSoldOut ? `<div class="absolute inset-0 bg-white/75 flex items-center justify-center"><span class="bg-charcoal text-white px-2 py-1 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">Agotado</span></div>` : ''}
               </div>
               <div class="p-3 sm:p-5">
                 <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-2">
-                  <h3 onclick="openDetailModal('${product.id}')" class="font-editorial text-sm sm:text-xl text-charcoal leading-snug cursor-pointer hover:text-amber-600 transition-colors line-clamp-2">${product.name}</h3>
+                  <h3 onclick="openDetailModal('${product.id}')" class="font-editorial text-sm sm:text-xl text-charcoal leading-snug cursor-pointer hover:text-accentOrange transition-colors line-clamp-2">${product.name}</h3>
                   <span class="text-xs sm:text-sm font-semibold text-charcoal shrink-0">$${Number(product.price).toFixed(2)}</span>
                 </div>
                 <p class="text-[11px] sm:text-xs text-stone font-light mt-1.5 sm:mt-2 line-clamp-2 leading-relaxed hidden sm:block">${product.description}</p>
               </div>
             </div>
-            <div class="px-3 pb-3 sm:px-5 sm:pb-5 pt-1 sm:pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 border-t border-sand/50">
+            <div class="px-3 pb-3 sm:px-5 sm:pb-5 pt-1 sm:pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 border-t border-[#E9D4C3]/50">
               <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-stone hidden sm:inline">${isSoldOut ? 'Sin cupo' : `Máx. ${maxAllowed} por pedido`}</span>
-              <button onclick="addToCart('${product.id}')" ${isSoldOut ? 'disabled' : ''} class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] transition-colors ${isSoldOut ? 'bg-sand text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-amber-700 cursor-pointer'}">
+              <button onclick="addToCart('${product.id}')" ${isSoldOut ? 'disabled' : ''} class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] transition-colors ${isSoldOut ? 'bg-[#E9D4C3] text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-stone cursor-pointer'}">
                 ${qtyInCart > 0 ? `En encargo (${qtyInCart})` : '+ Encargar'}
               </button>
             </div>
@@ -826,20 +854,20 @@
       const imagesList = product.images || ['https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=90'];
 
       document.getElementById('detail-content').innerHTML = `
-        <!-- Columna Izquierda: Imagen del producto -->
-        <div class="p-3 sm:p-6 bg-alabaster flex flex-col justify-between">
-          <div class="relative w-full h-[220px] sm:h-[380px] bg-white border border-sand overflow-hidden mb-2 flex items-center justify-center p-2 cursor-zoom-in" onclick="openLightbox(document.getElementById('modal-main-img').src)">
+        <!-- Columna Izquierda: Imagen -->
+        <div class="p-3 sm:p-6 bg-[#FAF8F5] flex flex-col justify-between">
+          <div class="relative w-full h-[220px] sm:h-[380px] bg-white border border-[#E9D4C3] overflow-hidden mb-2 flex items-center justify-center p-2 cursor-zoom-in" onclick="openLightbox(document.getElementById('modal-main-img').src)">
             <img id="modal-main-img" src="${imagesList[0]}" class="max-h-full max-w-full object-contain" />
           </div>
-          ${imagesList.length > 1 ? `<div class="flex gap-1.5 overflow-x-auto pb-1">${imagesList.map(img => `<button onclick="document.getElementById('modal-main-img').src='${img}'" class="w-12 h-12 sm:w-14 sm:h-14 border border-sand shrink-0 bg-white"><img src="${img}" class="w-full h-full object-cover"/></button>`).join('')}</div>` : ''}
+          ${imagesList.length > 1 ? `<div class="flex gap-1.5 overflow-x-auto pb-1">${imagesList.map(img => `<button onclick="document.getElementById('modal-main-img').src='${img}'" class="w-12 h-12 sm:w-14 sm:h-14 border border-[#E9D4C3] shrink-0 bg-white"><img src="${img}" class="w-full h-full object-cover"/></button>`).join('')}</div>` : ''}
         </div>
 
-        <!-- Columna Derecha: Información -->
+        <!-- Columna Derecha: Información y Botón original -->
         <div class="p-4 sm:p-8 flex flex-col justify-between space-y-3 sm:space-y-6">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <p class="text-[10px] uppercase tracking-[0.2em] text-amber-600 font-semibold">${product.category}</p>
-              <button onclick="shareProduct('${product.id}', event)" class="flex items-center gap-1.5 text-xs text-stone hover:text-charcoal uppercase tracking-wider border border-sand px-2.5 py-1 bg-alabaster transition-colors cursor-pointer">
+              <p class="text-[10px] uppercase tracking-[0.2em] text-accentOrange font-semibold">${product.category}</p>
+              <button onclick="shareProduct('${product.id}', event)" class="flex items-center gap-1.5 text-xs text-stone hover:text-charcoal uppercase tracking-wider border border-[#E9D4C3] px-2.5 py-1 bg-[#FAF8F5] transition-colors cursor-pointer">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>
@@ -849,23 +877,21 @@
             <h3 class="font-editorial text-xl sm:text-3xl text-charcoal leading-snug">${product.name}</h3>
             <p class="text-base sm:text-xl font-medium text-charcoal">$${Number(product.price).toFixed(2)} USD</p>
             
-            <!-- DESCRIPCIÓN: Con Ver más en Móvil (sm:hidden) y Completa sin cortes en Escritorio (hidden sm:block) -->
+            <!-- DESCRIPCIÓN -->
             <div class="pt-1">
-              <!-- Versión móvil con Ver más -->
               <div class="sm:hidden">
                 <p id="modal-desc-text" class="text-xs text-stone font-light leading-relaxed line-clamp-2">${product.description}</p>
-                ${product.description.length > 90 ? `<button onclick="toggleModalDescription(this)" data-full="${encodeURIComponent(product.description)}" data-short="${encodeURIComponent(product.description.substring(0, 90) + '...')}" class="text-[11px] text-amber-700 font-medium mt-1 underline cursor-pointer inline-block">Ver más</button>` : ''}
+                ${product.description.length > 90 ? `<button onclick="toggleModalDescription(this)" data-full="${encodeURIComponent(product.description)}" data-short="${encodeURIComponent(product.description.substring(0, 90) + '...')}" class="text-[11px] text-accentOrange font-medium mt-1 underline cursor-pointer inline-block">Ver más</button>` : ''}
               </div>
-              <!-- Versión escritorio completa por defecto -->
               <div class="hidden sm:block">
                 <p class="text-sm text-stone font-light leading-relaxed">${product.description}</p>
               </div>
             </div>
           </div>
 
-          <!-- Botón de compra siempre visible a primera vista -->
-          <div class="space-y-2 pt-2 border-t border-sand">
-            <button onclick="addToCart('${product.id}'); closeDetailModal();" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors shadow-md ${isSoldOut ? 'bg-sand text-stone cursor-not-allowed' : 'bg-charcoal text-white hover:bg-amber-700 cursor-pointer'}">
+          <!-- Botón de compra original de la tienda -->
+          <div class="space-y-2 pt-2 border-t border-[#E9D4C3]">
+            <button onclick="addToCart('${product.id}'); closeDetailModal();" ${isSoldOut ? 'disabled' : ''} class="w-full py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors shadow-md ${isSoldOut ? 'bg-[#E9D4C3] text-stone cursor-not-allowed' : 'bg-charcoal hover:bg-stone text-white cursor-pointer'}">
               ${isSoldOut ? 'Pieza Agotada' : 'Agregar al Carrito'}
             </button>
           </div>
@@ -915,6 +941,7 @@
       }
       persistCart();
       applyFilters();
+      renderHero();
       showToast('Agregado a tu carrito');
     }
 
@@ -927,12 +954,14 @@
       else if (newQty <= maxAllowed) cart[itemIndex].quantity = newQty;
       persistCart();
       applyFilters();
+      renderHero();
     }
 
     function removeFromCart(productId) {
       cart = cart.filter(item => item.id !== productId);
       persistCart();
       applyFilters();
+      renderHero();
     }
 
     function updateCartUI() {
@@ -974,8 +1003,8 @@
         const product = products.find(p => p.id === item.id);
         const subtotal = product.price * item.quantity;
         return `
-          <div class="bg-white border border-sand p-3.5 flex gap-3.5 items-center">
-            <img src="${product.images[0]}" class="w-16 h-20 object-cover bg-alabaster shrink-0" />
+          <div class="bg-[#FAF8F5] border border-[#E9D4C3] p-3.5 flex gap-3.5 items-center">
+            <img src="${product.images[0]}" class="w-16 h-20 object-cover bg-white shrink-0" />
             <div class="flex-1 min-w-0">
               <div class="flex justify-between items-start gap-2">
                 <h4 class="font-editorial text-base text-charcoal truncate">${product.name}</h4>
@@ -983,7 +1012,7 @@
               </div>
               <p class="text-[11px] text-stone">$${Number(product.price).toFixed(2)} c/u</p>
               <div class="flex items-center justify-between mt-2.5">
-                <div class="flex items-center border border-sand">
+                <div class="flex items-center border border-[#E9D4C3] bg-white">
                   <button onclick="updateCartQuantity('${product.id}', -1)" class="w-7 h-7 flex items-center justify-center">−</button>
                   <span class="w-8 text-center text-xs font-medium">${item.quantity}</span>
                   <button onclick="updateCartQuantity('${product.id}', 1)" class="w-7 h-7 flex items-center justify-center">+</button>
@@ -1084,7 +1113,7 @@
         return;
       }
       container.innerHTML = currentUploadedImages.map((img, idx) => `
-        <div class="relative w-14 h-14 border border-sand bg-white shrink-0 overflow-hidden">
+        <div class="relative w-14 h-14 border border-[#E9D4C3] bg-white shrink-0 overflow-hidden">
           <img src="${img}" class="w-full h-full object-cover" />
           <button type="button" onclick="currentUploadedImages.splice(${idx},1);updateAdminImagesPreview();" class="absolute top-0 right-0 bg-charcoal text-white w-4 h-4 text-[9px]">✕</button>
         </div>
@@ -1163,17 +1192,17 @@
     function renderAdminProductList() {
       document.getElementById('admin-total-count').textContent = products.length;
       document.getElementById('admin-product-list').innerHTML = products.map(p => `
-        <div class="bg-white border border-sand p-3 flex items-center justify-between gap-3">
+        <div class="bg-[#FAF8F5] border border-[#E9D4C3] p-3 flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${p.images[0]}" class="w-12 h-14 object-cover bg-alabaster shrink-0" />
+            <img src="${p.images[0]}" class="w-12 h-14 object-cover bg-white shrink-0" />
             <div class="min-w-0">
               <p class="font-editorial text-base text-charcoal truncate">${p.name} ${p.heroFeatured ? '⭐' : ''}</p>
               <p class="text-xs font-medium text-charcoal">$${Number(p.price).toFixed(2)}</p>
             </div>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <button onclick="editProduct('${p.id}')" class="border border-sand px-2.5 py-1 text-[11px]">Editar</button>
-            <button onclick="deleteProduct('${p.id}')" class="border border-sand px-2.5 py-1 text-[11px] text-red-700">Borrar</button>
+            <button onclick="editProduct('${p.id}')" class="border border-[#E9D4C3] px-2.5 py-1 text-[11px] bg-white">Editar</button>
+            <button onclick="deleteProduct('${p.id}')" class="border border-[#E9D4C3] px-2.5 py-1 text-[11px] text-red-700 bg-white">Borrar</button>
           </div>
         </div>
       `).join('');
